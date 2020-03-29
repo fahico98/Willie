@@ -42,6 +42,17 @@ public class Conexion {
       realizarConsulta(query);
    }
    
+   public void actualizarContrasenaUsuario(int id, String contrasena){
+      String encCont = Encriptador.encriptar(contrasena);
+      String query = "UPDATE usuarios SET contraseña  = '" + encCont + "' WHERE id = " + id;
+      realizarConsulta(query);
+   }
+   
+   public void eliminarUsuario(int id){
+      String query = "DELETE FROM usuarios WHERE id = " + id;
+      realizarConsulta(query);
+   }
+   
    /**
     * Metodo de inicio de sesión, si se encuentra un registro de usuario con los
     * valores de 'usuario' y 'contrasena' que se pasan por parametro, entonces

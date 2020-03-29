@@ -64,6 +64,8 @@ public class DashboardFrame extends javax.swing.JFrame {
       botonCambiarContrasenaCuenta = new javax.swing.JButton();
       botonRestaurarCuenta = new javax.swing.JButton();
       botonLimpiarCuenta = new javax.swing.JButton();
+      jButton1 = new javax.swing.JButton();
+      jButton2 = new javax.swing.JButton();
       jPanel3 = new javax.swing.JPanel();
       jPanel4 = new javax.swing.JPanel();
 
@@ -106,7 +108,6 @@ public class DashboardFrame extends javax.swing.JFrame {
 
       campoUsuarioCuenta.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
 
-      botonGuardarCuenta.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
       botonGuardarCuenta.setForeground(new java.awt.Color(0, 0, 0));
       botonGuardarCuenta.setText("Guardar");
       botonGuardarCuenta.addActionListener(new java.awt.event.ActionListener() {
@@ -115,7 +116,6 @@ public class DashboardFrame extends javax.swing.JFrame {
          }
       });
 
-      botonCambiarContrasenaCuenta.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
       botonCambiarContrasenaCuenta.setForeground(new java.awt.Color(0, 0, 0));
       botonCambiarContrasenaCuenta.setText("Cambiar contraseña");
       botonCambiarContrasenaCuenta.addActionListener(new java.awt.event.ActionListener() {
@@ -124,7 +124,6 @@ public class DashboardFrame extends javax.swing.JFrame {
          }
       });
 
-      botonRestaurarCuenta.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
       botonRestaurarCuenta.setForeground(new java.awt.Color(0, 0, 0));
       botonRestaurarCuenta.setText("Restaurar");
       botonRestaurarCuenta.addActionListener(new java.awt.event.ActionListener() {
@@ -133,7 +132,6 @@ public class DashboardFrame extends javax.swing.JFrame {
          }
       });
 
-      botonLimpiarCuenta.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
       botonLimpiarCuenta.setForeground(new java.awt.Color(0, 0, 0));
       botonLimpiarCuenta.setText("Limpiar campos");
       botonLimpiarCuenta.addActionListener(new java.awt.event.ActionListener() {
@@ -142,10 +140,30 @@ public class DashboardFrame extends javax.swing.JFrame {
          }
       });
 
+      jButton1.setForeground(new java.awt.Color(0, 0, 0));
+      jButton1.setText("Cerrar sesión");
+      jButton1.addActionListener(new java.awt.event.ActionListener() {
+         public void actionPerformed(java.awt.event.ActionEvent evt) {
+            jButton1ActionPerformed(evt);
+         }
+      });
+
+      jButton2.setForeground(new java.awt.Color(0, 0, 0));
+      jButton2.setText("Eliminar cuenta");
+      jButton2.addActionListener(new java.awt.event.ActionListener() {
+         public void actionPerformed(java.awt.event.ActionEvent evt) {
+            jButton2ActionPerformed(evt);
+         }
+      });
+
       javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
       jPanel2.setLayout(jPanel2Layout);
       jPanel2Layout.setHorizontalGroup(
          jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGap(229, 229, 229))
          .addGroup(jPanel2Layout.createSequentialGroup()
             .addGap(69, 69, 69)
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -168,12 +186,12 @@ public class DashboardFrame extends javax.swing.JFrame {
                .addGroup(jPanel2Layout.createSequentialGroup()
                   .addComponent(botonRestaurarCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
                   .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                  .addComponent(botonLimpiarCuenta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                  .addComponent(botonLimpiarCuenta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+               .addGroup(jPanel2Layout.createSequentialGroup()
+                  .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
+                  .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                  .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
             .addContainerGap(80, Short.MAX_VALUE))
-         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addGap(229, 229, 229))
       );
       jPanel2Layout.setVerticalGroup(
          jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -204,7 +222,11 @@ public class DashboardFrame extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                .addComponent(botonLimpiarCuenta)
                .addComponent(botonRestaurarCuenta))
-            .addContainerGap(58, Short.MAX_VALUE))
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+               .addComponent(jButton1)
+               .addComponent(jButton2))
+            .addContainerGap(30, Short.MAX_VALUE))
       );
 
       jTabbedPane1.addTab("Cuenta", jPanel2);
@@ -355,9 +377,42 @@ public class DashboardFrame extends javax.swing.JFrame {
 
    private void botonCambiarContrasenaCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCambiarContrasenaCuentaActionPerformed
       
-      
+      dispose();
+      new PasswordChangeFrame(login).setVisible(true);
       
    }//GEN-LAST:event_botonCambiarContrasenaCuentaActionPerformed
+
+   private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+      
+      dispose();
+      new LoginFrame().setVisible(true);
+      
+   }//GEN-LAST:event_jButton1ActionPerformed
+
+   private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+      
+      int opcion = JOptionPane.showConfirmDialog(
+         null,
+         "<html><strong>" +
+         "Esta seguro de desea eliminar su cuenta ?",
+         null,
+         JOptionPane.YES_NO_OPTION
+      );
+      
+      if(opcion == 0){
+         Conexion conexion = new Conexion();
+         conexion.eliminarUsuario(login.getId());
+         JOptionPane.showMessageDialog(
+            null,
+            "<html><strong>Su cuenta fue elininada satisfactoriamente!<strong><html>",
+            null,
+            JOptionPane.INFORMATION_MESSAGE
+         );
+         dispose();
+         new LoginFrame().setVisible(true);
+      }
+      
+   }//GEN-LAST:event_jButton2ActionPerformed
 
    /**
     * @param args the command line arguments
@@ -404,6 +459,8 @@ public class DashboardFrame extends javax.swing.JFrame {
    private javax.swing.JTextField campoRolCuenta;
    private javax.swing.JTextField campoUsuarioCuenta;
    private javax.swing.JLabel etiquetaTituloDashboard;
+   private javax.swing.JButton jButton1;
+   private javax.swing.JButton jButton2;
    private javax.swing.JLabel jLabel1;
    private javax.swing.JLabel jLabel2;
    private javax.swing.JLabel jLabel3;
