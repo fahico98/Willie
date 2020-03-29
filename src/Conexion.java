@@ -1,5 +1,6 @@
 
 import java.sql.*;
+import java.util.LinkedList;
 
 public class Conexion {
    
@@ -51,6 +52,38 @@ public class Conexion {
    public void eliminarUsuario(int id){
       String query = "DELETE FROM usuarios WHERE id = " + id;
       realizarConsulta(query);
+   }
+   
+   public LinkedList<Producto> listaProductos(){
+      LinkedList<Producto> salida = new LinkedList();
+      String query = "SELECT * FROM productos";
+      try{
+         ResultSet r = sentencia.executeQuery(query);
+         while(r.next()){
+            Producto p = new Producto(r.getInt(1), r.getString(2), r.getString(3), r.getInt(4),
+               r.getString(5), r.getInt(6), r.getInt(7));
+            salida.offer(p);
+         }
+      }catch(Exception e){
+         System.out.println("Error: " + e.getMessage());
+      }
+      return salida;
+   }
+   
+   public LinkedList<Cliente> listaClientes(){
+      LinkedList<Cliente> salida = new LinkedList();
+      String query = "SELECT * FROM clientes";
+      try{
+         ResultSet r = sentencia.executeQuery(query);
+         while(r.next()){
+            Cliente c = new Cliente(r.getInt(1), r.getString(2), r.getString(3), r.getInt(4),
+               r.getString(5), r.getString(6));
+            salida.offer(c);
+         }
+      }catch(Exception e){
+         System.out.println("Error: " + e.getMessage());
+      }
+      return salida;
    }
    
    /**

@@ -1,14 +1,14 @@
 
+import java.util.LinkedList;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 public class DashboardFrame extends javax.swing.JFrame {
 
    private Usuario login;
    private String nombreTitulo, apellidoTitulo, rolTitulo;
+   private DefaultTableModel modeloProductos, modeloClientes;
    
-   /**
-    * Creates new form DashboardFrame
-    */
    public DashboardFrame(Usuario login){
       
       initComponents();
@@ -29,6 +29,8 @@ public class DashboardFrame extends javax.swing.JFrame {
       campoApellidoCuenta.setText(login.getApellido());
       campoRolCuenta.setText(login.getRol());
       campoUsuarioCuenta.setText(login.getUsuario());
+      
+      llenarTablas();
    }
    
    public void restaurar(){
@@ -36,6 +38,63 @@ public class DashboardFrame extends javax.swing.JFrame {
       campoApellidoCuenta.setText(login.getApellido());
       campoRolCuenta.setText(login.getRol());
       campoUsuarioCuenta.setText(login.getUsuario());
+   }
+   
+   public void llenarTablas(){
+      
+      Conexion conexion = new Conexion();
+      
+      String[] array;
+      
+      modeloProductos = new DefaultTableModel();
+      modeloProductos.addColumn("<html>Id</html>");
+      modeloProductos.addColumn("<html>Producto</html>");
+      modeloProductos.addColumn("<html>Tipo</html>");
+      modeloProductos.addColumn("<html>Cantidad por unidad</html>");
+      modeloProductos.addColumn("<html>Unidad de medida</html>");
+      modeloProductos.addColumn("<html>Precio unitario</html>");
+      modeloProductos.addColumn("<html>Total unidades</html>");
+      this.tablaProductos.setModel(modeloProductos);
+      
+      ((DefaultTableModel)tablaProductos.getModel()).setNumRows(0);
+      LinkedList<Producto> productos = conexion.listaProductos();
+      array = new String[7];
+      
+      for (int i = 0; i < productos.size(); i++) {
+         Producto p = productos.poll();
+         array[0] = p.getId() + "";
+         array[1] = p.getNombre();
+         array[2] = p.getTipo();
+         array[3] = p.getCantidad() + "";
+         array[4] = p.getUnidadesMedida() + "";
+         array[5] = p.getPrecioUnitario() + "";
+         array[6] = p.getTotalUnidades() + "";
+         modeloProductos.addRow(array);
+      }
+      
+      modeloClientes = new DefaultTableModel();
+      modeloClientes.addColumn("<html>Id</html>");
+      modeloClientes.addColumn("<html>Nombre</html>");
+      modeloClientes.addColumn("<html>Apellido</html>");
+      modeloClientes.addColumn("<html>Edad</html>");
+      modeloClientes.addColumn("<html>Dirección</html>");
+      modeloClientes.addColumn("<html>Teléfono</html>");
+      this.tablaClientes.setModel(modeloClientes);
+      
+      ((DefaultTableModel)tablaClientes.getModel()).setNumRows(0);
+      LinkedList<Cliente> clientes = conexion.listaClientes();
+      array = new String[6];
+      
+      for (int i = 0; i < productos.size(); i++) {
+         Cliente c = clientes.poll();
+         array[0] = c.getId() + "";
+         array[1] = c.getNombre();
+         array[2] = c.getApellido();
+         array[3] = c.getEdad() + "";
+         array[4] = c.getDireccion();
+         array[5] = c.getTelefono();
+         modeloClientes.addRow(array);
+      }
    }
    
    /**
@@ -67,7 +126,11 @@ public class DashboardFrame extends javax.swing.JFrame {
       jButton1 = new javax.swing.JButton();
       jButton2 = new javax.swing.JButton();
       jPanel3 = new javax.swing.JPanel();
+      jScrollPane1 = new javax.swing.JScrollPane();
+      tablaProductos = new javax.swing.JTable();
       jPanel4 = new javax.swing.JPanel();
+      jScrollPane2 = new javax.swing.JScrollPane();
+      tablaClientes = new javax.swing.JTable();
 
       setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -226,33 +289,71 @@ public class DashboardFrame extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                .addComponent(jButton1)
                .addComponent(jButton2))
-            .addContainerGap(30, Short.MAX_VALUE))
+            .addContainerGap(31, Short.MAX_VALUE))
       );
 
       jTabbedPane1.addTab("Cuenta", jPanel2);
+
+      tablaProductos.setModel(new javax.swing.table.DefaultTableModel(
+         new Object [][] {
+            {null, null, null, null},
+            {null, null, null, null},
+            {null, null, null, null},
+            {null, null, null, null}
+         },
+         new String [] {
+            "Title 1", "Title 2", "Title 3", "Title 4"
+         }
+      ));
+      jScrollPane1.setViewportView(tablaProductos);
 
       javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
       jPanel3.setLayout(jPanel3Layout);
       jPanel3Layout.setHorizontalGroup(
          jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-         .addGap(0, 600, Short.MAX_VALUE)
+         .addGroup(jPanel3Layout.createSequentialGroup()
+            .addContainerGap()
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 588, Short.MAX_VALUE)
+            .addContainerGap())
       );
       jPanel3Layout.setVerticalGroup(
          jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-         .addGap(0, 439, Short.MAX_VALUE)
+         .addGroup(jPanel3Layout.createSequentialGroup()
+            .addContainerGap()
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addContainerGap(134, Short.MAX_VALUE))
       );
 
       jTabbedPane1.addTab("Inventario", jPanel3);
+
+      tablaClientes.setModel(new javax.swing.table.DefaultTableModel(
+         new Object [][] {
+            {null, null, null, null},
+            {null, null, null, null},
+            {null, null, null, null},
+            {null, null, null, null}
+         },
+         new String [] {
+            "Title 1", "Title 2", "Title 3", "Title 4"
+         }
+      ));
+      jScrollPane2.setViewportView(tablaClientes);
 
       javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
       jPanel4.setLayout(jPanel4Layout);
       jPanel4Layout.setHorizontalGroup(
          jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-         .addGap(0, 600, Short.MAX_VALUE)
+         .addGroup(jPanel4Layout.createSequentialGroup()
+            .addContainerGap()
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 588, Short.MAX_VALUE)
+            .addContainerGap())
       );
       jPanel4Layout.setVerticalGroup(
          jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-         .addGap(0, 439, Short.MAX_VALUE)
+         .addGroup(jPanel4Layout.createSequentialGroup()
+            .addContainerGap()
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addContainerGap(134, Short.MAX_VALUE))
       );
 
       jTabbedPane1.addTab("Clientes", jPanel4);
@@ -408,6 +509,7 @@ public class DashboardFrame extends javax.swing.JFrame {
             null,
             JOptionPane.INFORMATION_MESSAGE
          );
+         conexion.cerrarConexion();
          dispose();
          new LoginFrame().setVisible(true);
       }
@@ -470,6 +572,10 @@ public class DashboardFrame extends javax.swing.JFrame {
    private javax.swing.JPanel jPanel2;
    private javax.swing.JPanel jPanel3;
    private javax.swing.JPanel jPanel4;
+   private javax.swing.JScrollPane jScrollPane1;
+   private javax.swing.JScrollPane jScrollPane2;
    private javax.swing.JTabbedPane jTabbedPane1;
+   private javax.swing.JTable tablaClientes;
+   private javax.swing.JTable tablaProductos;
    // End of variables declaration//GEN-END:variables
 }
