@@ -43,10 +43,11 @@ public class DashboardFrame extends javax.swing.JFrame {
    public void llenarTablas(){
       
       Conexion conexion = new Conexion();
-      
       String[] array;
+      int size;
       
       modeloProductos = new DefaultTableModel();
+      
       modeloProductos.addColumn("<html>Id</html>");
       modeloProductos.addColumn("<html>Producto</html>");
       modeloProductos.addColumn("<html>Tipo</html>");
@@ -54,13 +55,23 @@ public class DashboardFrame extends javax.swing.JFrame {
       modeloProductos.addColumn("<html>Unidad de medida</html>");
       modeloProductos.addColumn("<html>Precio unitario</html>");
       modeloProductos.addColumn("<html>Total unidades</html>");
+      
       this.tablaProductos.setModel(modeloProductos);
+      
+      tablaProductos.getColumnModel().getColumn(0).setPreferredWidth(30);
+      tablaProductos.getColumnModel().getColumn(1).setPreferredWidth(150);
+      tablaProductos.getColumnModel().getColumn(2).setPreferredWidth(100);
+      tablaProductos.getColumnModel().getColumn(3).setPreferredWidth(150);
+      tablaProductos.getColumnModel().getColumn(4).setPreferredWidth(70);
+      tablaProductos.getColumnModel().getColumn(5).setPreferredWidth(120);
+      tablaProductos.getColumnModel().getColumn(6).setPreferredWidth(60);
       
       ((DefaultTableModel)tablaProductos.getModel()).setNumRows(0);
       LinkedList<Producto> productos = conexion.listaProductos();
       array = new String[7];
       
-      for (int i = 0; i < productos.size(); i++) {
+      size = productos.size();
+      for (int i = 0; i < size; i++) {
          Producto p = productos.poll();
          array[0] = p.getId() + "";
          array[1] = p.getNombre();
@@ -73,19 +84,29 @@ public class DashboardFrame extends javax.swing.JFrame {
       }
       
       modeloClientes = new DefaultTableModel();
+      
       modeloClientes.addColumn("<html>Id</html>");
       modeloClientes.addColumn("<html>Nombre</html>");
       modeloClientes.addColumn("<html>Apellido</html>");
       modeloClientes.addColumn("<html>Edad</html>");
       modeloClientes.addColumn("<html>Dirección</html>");
       modeloClientes.addColumn("<html>Teléfono</html>");
+      
       this.tablaClientes.setModel(modeloClientes);
+      
+      tablaClientes.getColumnModel().getColumn(0).setPreferredWidth(30);
+      tablaClientes.getColumnModel().getColumn(1).setPreferredWidth(130);
+      tablaClientes.getColumnModel().getColumn(2).setPreferredWidth(130);
+      tablaClientes.getColumnModel().getColumn(3).setPreferredWidth(50);
+      tablaClientes.getColumnModel().getColumn(4).setPreferredWidth(150);
+      tablaClientes.getColumnModel().getColumn(5).setPreferredWidth(100);
       
       ((DefaultTableModel)tablaClientes.getModel()).setNumRows(0);
       LinkedList<Cliente> clientes = conexion.listaClientes();
       array = new String[6];
       
-      for (int i = 0; i < productos.size(); i++) {
+      size = clientes.size();
+      for (int i = 0; i < size; i++) {
          Cliente c = clientes.poll();
          array[0] = c.getId() + "";
          array[1] = c.getNombre();
@@ -109,6 +130,17 @@ public class DashboardFrame extends javax.swing.JFrame {
       jPanel1 = new javax.swing.JPanel();
       etiquetaTituloDashboard = new javax.swing.JLabel();
       jTabbedPane1 = new javax.swing.JTabbedPane();
+      jPanel3 = new javax.swing.JPanel();
+      jScrollPane1 = new javax.swing.JScrollPane();
+      tablaProductos = new javax.swing.JTable();
+      jPanel5 = new javax.swing.JPanel();
+      jButton3 = new javax.swing.JButton();
+      jButton4 = new javax.swing.JButton();
+      jButton5 = new javax.swing.JButton();
+      jLabel6 = new javax.swing.JLabel();
+      jPanel4 = new javax.swing.JPanel();
+      jScrollPane2 = new javax.swing.JScrollPane();
+      tablaClientes = new javax.swing.JTable();
       jPanel2 = new javax.swing.JPanel();
       jLabel1 = new javax.swing.JLabel();
       jLabel2 = new javax.swing.JLabel();
@@ -125,174 +157,12 @@ public class DashboardFrame extends javax.swing.JFrame {
       botonLimpiarCuenta = new javax.swing.JButton();
       jButton1 = new javax.swing.JButton();
       jButton2 = new javax.swing.JButton();
-      jPanel3 = new javax.swing.JPanel();
-      jScrollPane1 = new javax.swing.JScrollPane();
-      tablaProductos = new javax.swing.JTable();
-      jPanel4 = new javax.swing.JPanel();
-      jScrollPane2 = new javax.swing.JScrollPane();
-      tablaClientes = new javax.swing.JTable();
 
       setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
       etiquetaTituloDashboard.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
       etiquetaTituloDashboard.setForeground(new java.awt.Color(0, 0, 0));
       etiquetaTituloDashboard.setText("jLabel1");
-
-      jLabel1.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
-      jLabel1.setForeground(new java.awt.Color(0, 0, 0));
-      jLabel1.setText("<html>Datos de usuario.</html>");
-
-      jLabel2.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
-      jLabel2.setForeground(new java.awt.Color(0, 0, 0));
-      jLabel2.setText("Nombre:");
-
-      jLabel3.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
-      jLabel3.setForeground(new java.awt.Color(0, 0, 0));
-      jLabel3.setText("Apellido:");
-
-      jLabel4.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
-      jLabel4.setForeground(new java.awt.Color(0, 0, 0));
-      jLabel4.setText("Rol:");
-
-      jLabel5.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
-      jLabel5.setForeground(new java.awt.Color(0, 0, 0));
-      jLabel5.setText("Nombre de usuario:");
-
-      campoNombreCuenta.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
-      campoNombreCuenta.addActionListener(new java.awt.event.ActionListener() {
-         public void actionPerformed(java.awt.event.ActionEvent evt) {
-            campoNombreCuentaActionPerformed(evt);
-         }
-      });
-
-      campoApellidoCuenta.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
-
-      campoRolCuenta.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
-
-      campoUsuarioCuenta.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
-
-      botonGuardarCuenta.setForeground(new java.awt.Color(0, 0, 0));
-      botonGuardarCuenta.setText("Guardar");
-      botonGuardarCuenta.addActionListener(new java.awt.event.ActionListener() {
-         public void actionPerformed(java.awt.event.ActionEvent evt) {
-            botonGuardarCuentaActionPerformed(evt);
-         }
-      });
-
-      botonCambiarContrasenaCuenta.setForeground(new java.awt.Color(0, 0, 0));
-      botonCambiarContrasenaCuenta.setText("Cambiar contraseña");
-      botonCambiarContrasenaCuenta.addActionListener(new java.awt.event.ActionListener() {
-         public void actionPerformed(java.awt.event.ActionEvent evt) {
-            botonCambiarContrasenaCuentaActionPerformed(evt);
-         }
-      });
-
-      botonRestaurarCuenta.setForeground(new java.awt.Color(0, 0, 0));
-      botonRestaurarCuenta.setText("Restaurar");
-      botonRestaurarCuenta.addActionListener(new java.awt.event.ActionListener() {
-         public void actionPerformed(java.awt.event.ActionEvent evt) {
-            botonRestaurarCuentaActionPerformed(evt);
-         }
-      });
-
-      botonLimpiarCuenta.setForeground(new java.awt.Color(0, 0, 0));
-      botonLimpiarCuenta.setText("Limpiar campos");
-      botonLimpiarCuenta.addActionListener(new java.awt.event.ActionListener() {
-         public void actionPerformed(java.awt.event.ActionEvent evt) {
-            botonLimpiarCuentaActionPerformed(evt);
-         }
-      });
-
-      jButton1.setForeground(new java.awt.Color(0, 0, 0));
-      jButton1.setText("Cerrar sesión");
-      jButton1.addActionListener(new java.awt.event.ActionListener() {
-         public void actionPerformed(java.awt.event.ActionEvent evt) {
-            jButton1ActionPerformed(evt);
-         }
-      });
-
-      jButton2.setForeground(new java.awt.Color(0, 0, 0));
-      jButton2.setText("Eliminar cuenta");
-      jButton2.addActionListener(new java.awt.event.ActionListener() {
-         public void actionPerformed(java.awt.event.ActionEvent evt) {
-            jButton2ActionPerformed(evt);
-         }
-      });
-
-      javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-      jPanel2.setLayout(jPanel2Layout);
-      jPanel2Layout.setHorizontalGroup(
-         jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addGap(229, 229, 229))
-         .addGroup(jPanel2Layout.createSequentialGroup()
-            .addGap(69, 69, 69)
-            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-               .addGroup(jPanel2Layout.createSequentialGroup()
-                  .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                     .addComponent(jLabel2)
-                     .addComponent(jLabel4)
-                     .addComponent(jLabel3)
-                     .addComponent(jLabel5))
-                  .addGap(18, 18, 18)
-                  .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                     .addComponent(campoNombreCuenta, javax.swing.GroupLayout.DEFAULT_SIZE, 295, Short.MAX_VALUE)
-                     .addComponent(campoApellidoCuenta)
-                     .addComponent(campoRolCuenta)
-                     .addComponent(campoUsuarioCuenta)))
-               .addGroup(jPanel2Layout.createSequentialGroup()
-                  .addComponent(botonGuardarCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
-                  .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                  .addComponent(botonCambiarContrasenaCuenta, javax.swing.GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE))
-               .addGroup(jPanel2Layout.createSequentialGroup()
-                  .addComponent(botonRestaurarCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
-                  .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                  .addComponent(botonLimpiarCuenta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-               .addGroup(jPanel2Layout.createSequentialGroup()
-                  .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
-                  .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                  .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-            .addContainerGap(80, Short.MAX_VALUE))
-      );
-      jPanel2Layout.setVerticalGroup(
-         jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-         .addGroup(jPanel2Layout.createSequentialGroup()
-            .addGap(37, 37, 37)
-            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addGap(40, 40, 40)
-            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-               .addComponent(jLabel2)
-               .addComponent(campoNombreCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGap(18, 18, 18)
-            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-               .addComponent(jLabel3)
-               .addComponent(campoApellidoCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGap(18, 18, 18)
-            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-               .addComponent(jLabel4)
-               .addComponent(campoRolCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGap(18, 18, 18)
-            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-               .addComponent(jLabel5)
-               .addComponent(campoUsuarioCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGap(39, 39, 39)
-            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-               .addComponent(botonGuardarCuenta)
-               .addComponent(botonCambiarContrasenaCuenta))
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-               .addComponent(botonLimpiarCuenta)
-               .addComponent(botonRestaurarCuenta))
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-               .addComponent(jButton1)
-               .addComponent(jButton2))
-            .addContainerGap(31, Short.MAX_VALUE))
-      );
-
-      jTabbedPane1.addTab("Cuenta", jPanel2);
 
       tablaProductos.setModel(new javax.swing.table.DefaultTableModel(
          new Object [][] {
@@ -304,92 +174,310 @@ public class DashboardFrame extends javax.swing.JFrame {
          new String [] {
             "Title 1", "Title 2", "Title 3", "Title 4"
          }
-      ));
-      jScrollPane1.setViewportView(tablaProductos);
+      )
+      {public boolean isCellEditable(int row, int column){return false;}}
+   );
+   jScrollPane1.setViewportView(tablaProductos);
 
-      javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-      jPanel3.setLayout(jPanel3Layout);
-      jPanel3Layout.setHorizontalGroup(
-         jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-         .addGroup(jPanel3Layout.createSequentialGroup()
-            .addContainerGap()
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 588, Short.MAX_VALUE)
-            .addContainerGap())
-      );
-      jPanel3Layout.setVerticalGroup(
-         jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-         .addGroup(jPanel3Layout.createSequentialGroup()
-            .addContainerGap()
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addContainerGap(134, Short.MAX_VALUE))
-      );
+   jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Opciones de inventario", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("sansserif", 1, 12), new java.awt.Color(0, 0, 0))); // NOI18N
+   jPanel5.setForeground(new java.awt.Color(255, 255, 255));
 
-      jTabbedPane1.addTab("Inventario", jPanel3);
+   jButton3.setForeground(new java.awt.Color(0, 0, 0));
+   jButton3.setText("Registrar producto");
+   jButton3.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+         jButton3ActionPerformed(evt);
+      }
+   });
 
-      tablaClientes.setModel(new javax.swing.table.DefaultTableModel(
-         new Object [][] {
-            {null, null, null, null},
-            {null, null, null, null},
-            {null, null, null, null},
-            {null, null, null, null}
-         },
-         new String [] {
-            "Title 1", "Title 2", "Title 3", "Title 4"
-         }
-      ));
-      jScrollPane2.setViewportView(tablaClientes);
+   jButton4.setForeground(new java.awt.Color(0, 0, 0));
+   jButton4.setText("Actualizar producto");
+   jButton4.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+         jButton4ActionPerformed(evt);
+      }
+   });
 
-      javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-      jPanel4.setLayout(jPanel4Layout);
-      jPanel4Layout.setHorizontalGroup(
-         jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-         .addGroup(jPanel4Layout.createSequentialGroup()
-            .addContainerGap()
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 588, Short.MAX_VALUE)
-            .addContainerGap())
-      );
-      jPanel4Layout.setVerticalGroup(
-         jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-         .addGroup(jPanel4Layout.createSequentialGroup()
-            .addContainerGap()
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addContainerGap(134, Short.MAX_VALUE))
-      );
+   jButton5.setForeground(new java.awt.Color(0, 0, 0));
+   jButton5.setText("Generar reporte");
 
-      jTabbedPane1.addTab("Clientes", jPanel4);
+   javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+   jPanel5.setLayout(jPanel5Layout);
+   jPanel5Layout.setHorizontalGroup(
+      jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+      .addGroup(jPanel5Layout.createSequentialGroup()
+         .addContainerGap()
+         .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+         .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
+         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+         .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+         .addContainerGap())
+   );
+   jPanel5Layout.setVerticalGroup(
+      jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+      .addGroup(jPanel5Layout.createSequentialGroup()
+         .addContainerGap()
+         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+            .addComponent(jButton3)
+            .addComponent(jButton5)
+            .addComponent(jButton4))
+         .addContainerGap(12, Short.MAX_VALUE))
+   );
 
-      javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-      jPanel1.setLayout(jPanel1Layout);
-      jPanel1Layout.setHorizontalGroup(
-         jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-         .addGroup(jPanel1Layout.createSequentialGroup()
-            .addContainerGap()
-            .addComponent(etiquetaTituloDashboard, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addContainerGap())
-         .addComponent(jTabbedPane1)
-      );
-      jPanel1Layout.setVerticalGroup(
-         jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-         .addGroup(jPanel1Layout.createSequentialGroup()
-            .addContainerGap()
-            .addComponent(etiquetaTituloDashboard)
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-            .addComponent(jTabbedPane1))
-      );
+   jLabel6.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
+   jLabel6.setForeground(new java.awt.Color(0, 0, 0));
+   jLabel6.setText("<html>Listado de productos del inventario</html>");
 
-      javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-      getContentPane().setLayout(layout);
-      layout.setHorizontalGroup(
-         layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-         .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-      );
-      layout.setVerticalGroup(
-         layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-         .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-      );
+   javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+   jPanel3.setLayout(jPanel3Layout);
+   jPanel3Layout.setHorizontalGroup(
+      jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+      .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+         .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+         .addGap(187, 187, 187))
+      .addGroup(jPanel3Layout.createSequentialGroup()
+         .addContainerGap()
+         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1)
+            .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+         .addContainerGap())
+   );
+   jPanel3Layout.setVerticalGroup(
+      jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+      .addGroup(jPanel3Layout.createSequentialGroup()
+         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+         .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+         .addGap(18, 18, 18)
+         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
+         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+         .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+         .addContainerGap())
+   );
 
-      pack();
-      setLocationRelativeTo(null);
+   jTabbedPane1.addTab("Inventario", jPanel3);
+
+   tablaClientes.setModel(new javax.swing.table.DefaultTableModel(
+      new Object [][] {
+         {null, null, null, null},
+         {null, null, null, null},
+         {null, null, null, null},
+         {null, null, null, null}
+      },
+      new String [] {
+         "Title 1", "Title 2", "Title 3", "Title 4"
+      }
+   )
+   {public boolean isCellEditable(int row, int column){return false;}}
+   );
+   jScrollPane2.setViewportView(tablaClientes);
+
+   javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+   jPanel4.setLayout(jPanel4Layout);
+   jPanel4Layout.setHorizontalGroup(
+      jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+      .addGroup(jPanel4Layout.createSequentialGroup()
+         .addContainerGap()
+         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 582, javax.swing.GroupLayout.PREFERRED_SIZE)
+         .addContainerGap(12, Short.MAX_VALUE))
+   );
+   jPanel4Layout.setVerticalGroup(
+      jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+      .addGroup(jPanel4Layout.createSequentialGroup()
+         .addContainerGap()
+         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+         .addContainerGap(128, Short.MAX_VALUE))
+   );
+
+   jTabbedPane1.addTab("Clientes", jPanel4);
+
+   jLabel1.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
+   jLabel1.setForeground(new java.awt.Color(0, 0, 0));
+   jLabel1.setText("<html>Datos de usuario.</html>");
+
+   jLabel2.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
+   jLabel2.setForeground(new java.awt.Color(0, 0, 0));
+   jLabel2.setText("Nombre:");
+
+   jLabel3.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
+   jLabel3.setForeground(new java.awt.Color(0, 0, 0));
+   jLabel3.setText("Apellido:");
+
+   jLabel4.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
+   jLabel4.setForeground(new java.awt.Color(0, 0, 0));
+   jLabel4.setText("Rol:");
+
+   jLabel5.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
+   jLabel5.setForeground(new java.awt.Color(0, 0, 0));
+   jLabel5.setText("Nombre de usuario:");
+
+   campoNombreCuenta.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
+   campoNombreCuenta.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+         campoNombreCuentaActionPerformed(evt);
+      }
+   });
+
+   campoApellidoCuenta.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
+
+   campoRolCuenta.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
+
+   campoUsuarioCuenta.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
+
+   botonGuardarCuenta.setForeground(new java.awt.Color(0, 0, 0));
+   botonGuardarCuenta.setText("Guardar");
+   botonGuardarCuenta.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+         botonGuardarCuentaActionPerformed(evt);
+      }
+   });
+
+   botonCambiarContrasenaCuenta.setForeground(new java.awt.Color(0, 0, 0));
+   botonCambiarContrasenaCuenta.setText("Cambiar contraseña");
+   botonCambiarContrasenaCuenta.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+         botonCambiarContrasenaCuentaActionPerformed(evt);
+      }
+   });
+
+   botonRestaurarCuenta.setForeground(new java.awt.Color(0, 0, 0));
+   botonRestaurarCuenta.setText("Restaurar");
+   botonRestaurarCuenta.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+         botonRestaurarCuentaActionPerformed(evt);
+      }
+   });
+
+   botonLimpiarCuenta.setForeground(new java.awt.Color(0, 0, 0));
+   botonLimpiarCuenta.setText("Limpiar campos");
+   botonLimpiarCuenta.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+         botonLimpiarCuentaActionPerformed(evt);
+      }
+   });
+
+   jButton1.setForeground(new java.awt.Color(0, 0, 0));
+   jButton1.setText("Cerrar sesión");
+   jButton1.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+         jButton1ActionPerformed(evt);
+      }
+   });
+
+   jButton2.setForeground(new java.awt.Color(0, 0, 0));
+   jButton2.setText("Eliminar cuenta");
+   jButton2.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+         jButton2ActionPerformed(evt);
+      }
+   });
+
+   javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+   jPanel2.setLayout(jPanel2Layout);
+   jPanel2Layout.setHorizontalGroup(
+      jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+      .addGroup(jPanel2Layout.createSequentialGroup()
+         .addGap(74, 74, 74)
+         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+               .addComponent(botonGuardarCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
+               .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+               .addComponent(botonCambiarContrasenaCuenta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+               .addComponent(botonRestaurarCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
+               .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+               .addComponent(botonLimpiarCuenta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+               .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
+               .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+               .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+               .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                  .addComponent(jLabel2)
+                  .addComponent(jLabel4)
+                  .addComponent(jLabel3)
+                  .addComponent(jLabel5))
+               .addGap(18, 18, 18)
+               .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                  .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                  .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                     .addComponent(campoNombreCuenta)
+                     .addComponent(campoApellidoCuenta)
+                     .addComponent(campoRolCuenta)
+                     .addComponent(campoUsuarioCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+         .addContainerGap(75, Short.MAX_VALUE))
+   );
+   jPanel2Layout.setVerticalGroup(
+      jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+      .addGroup(jPanel2Layout.createSequentialGroup()
+         .addGap(26, 26, 26)
+         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+         .addGap(38, 38, 38)
+         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+            .addComponent(jLabel2)
+            .addComponent(campoNombreCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+         .addGap(18, 18, 18)
+         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+            .addComponent(jLabel3)
+            .addComponent(campoApellidoCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+         .addGap(18, 18, 18)
+         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+            .addComponent(jLabel4)
+            .addComponent(campoRolCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+         .addGap(18, 18, 18)
+         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+            .addComponent(jLabel5)
+            .addComponent(campoUsuarioCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+         .addGap(39, 39, 39)
+         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+            .addComponent(botonGuardarCuenta)
+            .addComponent(botonCambiarContrasenaCuenta))
+         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(botonLimpiarCuenta)
+            .addComponent(botonRestaurarCuenta))
+         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+            .addComponent(jButton1)
+            .addComponent(jButton2))
+         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+   );
+
+   jTabbedPane1.addTab("Cuenta", jPanel2);
+
+   javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+   jPanel1.setLayout(jPanel1Layout);
+   jPanel1Layout.setHorizontalGroup(
+      jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+      .addGroup(jPanel1Layout.createSequentialGroup()
+         .addContainerGap()
+         .addComponent(etiquetaTituloDashboard, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+         .addContainerGap())
+      .addComponent(jTabbedPane1)
+   );
+   jPanel1Layout.setVerticalGroup(
+      jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+      .addGroup(jPanel1Layout.createSequentialGroup()
+         .addContainerGap()
+         .addComponent(etiquetaTituloDashboard)
+         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+         .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 464, Short.MAX_VALUE))
+   );
+
+   javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+   getContentPane().setLayout(layout);
+   layout.setHorizontalGroup(
+      layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+      .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+   );
+   layout.setVerticalGroup(
+      layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+      .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+   );
+
+   pack();
+   setLocationRelativeTo(null);
    }// </editor-fold>//GEN-END:initComponents
 
    private void campoNombreCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoNombreCuentaActionPerformed
@@ -516,6 +604,19 @@ public class DashboardFrame extends javax.swing.JFrame {
       
    }//GEN-LAST:event_jButton2ActionPerformed
 
+   private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    
+      new FormProductFrame(login).setVisible(true);
+      dispose();
+      
+   }//GEN-LAST:event_jButton3ActionPerformed
+
+   private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+      
+      
+      
+   }//GEN-LAST:event_jButton4ActionPerformed
+
    /**
     * @param args the command line arguments
     */
@@ -563,15 +664,20 @@ public class DashboardFrame extends javax.swing.JFrame {
    private javax.swing.JLabel etiquetaTituloDashboard;
    private javax.swing.JButton jButton1;
    private javax.swing.JButton jButton2;
+   private javax.swing.JButton jButton3;
+   private javax.swing.JButton jButton4;
+   private javax.swing.JButton jButton5;
    private javax.swing.JLabel jLabel1;
    private javax.swing.JLabel jLabel2;
    private javax.swing.JLabel jLabel3;
    private javax.swing.JLabel jLabel4;
    private javax.swing.JLabel jLabel5;
+   private javax.swing.JLabel jLabel6;
    private javax.swing.JPanel jPanel1;
    private javax.swing.JPanel jPanel2;
    private javax.swing.JPanel jPanel3;
    private javax.swing.JPanel jPanel4;
+   private javax.swing.JPanel jPanel5;
    private javax.swing.JScrollPane jScrollPane1;
    private javax.swing.JScrollPane jScrollPane2;
    private javax.swing.JTabbedPane jTabbedPane1;

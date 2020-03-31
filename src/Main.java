@@ -7,7 +7,6 @@ public class Main {
       // llenarTablas();
       
       new LoginFrame().setVisible(true);
-      
    }
    
    public static void crearTablas(){
