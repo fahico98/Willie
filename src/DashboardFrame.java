@@ -1,5 +1,7 @@
 
 import java.util.LinkedList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -200,6 +202,11 @@ public class DashboardFrame extends javax.swing.JFrame {
 
    jButton5.setForeground(new java.awt.Color(0, 0, 0));
    jButton5.setText("Generar reporte");
+   jButton5.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+         jButton5ActionPerformed(evt);
+      }
+   });
 
    javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
    jPanel5.setLayout(jPanel5Layout);
@@ -613,9 +620,90 @@ public class DashboardFrame extends javax.swing.JFrame {
 
    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
       
+      Conexion conexion = new Conexion();
+      String[] opciones = {"Id", "Nombre"};
       
+      String opcion = (String)JOptionPane.showInputDialog(
+         null,
+         "<html><strong>Seleccione el criterio de busqueda para el<br>producto que desea actualizar</strong></html>",
+         null,
+         JOptionPane.QUESTION_MESSAGE,
+         null,
+         opciones,
+         opciones[0]
+      );
+      
+      if(opcion.compareTo("Id") == 0){
+         String id = JOptionPane.showInputDialog(
+            null,
+            "<html><strong>Ingrese el id del producto:</strong></html>", 
+            null,
+            JOptionPane.QUESTION_MESSAGE
+         );
+         Pattern num = Pattern.compile("[0-9]+");
+         Matcher matId = num.matcher(id);
+         if(id.compareTo("") == 0 || !matId.matches()){
+            JOptionPane.showMessageDialog(
+               null,
+               "<html><strong>El valor ingresado no es valido!<strong><html>",
+               null,
+               JOptionPane.ERROR_MESSAGE
+            );
+         }else{
+            Producto p = conexion.datosProductoId(Integer.parseInt(id));
+            if(p != null){
+               new FormProductFrame(login, p).setVisible(true);
+               conexion.cerrarConexion();
+               dispose();
+            }else{
+               JOptionPane.showMessageDialog(
+                  null,
+                  "<html><strong>No se encontró ningun prducto con el Id ingresado!<strong><html>",
+                  null,
+                  JOptionPane.WARNING_MESSAGE
+               );
+            }
+         }
+      }else{
+         String nombre = JOptionPane.showInputDialog(
+            null,
+            "<html><strong>Ingrese el nombre del producto:</strong></html>", 
+            null,
+            JOptionPane.QUESTION_MESSAGE
+         );
+         Pattern alphaNum = Pattern.compile("[a-zA-Z0-9 ]+");
+         Matcher matNombre = alphaNum.matcher(nombre);
+         if(nombre.compareTo("") == 0 || !matNombre.matches()){
+            JOptionPane.showMessageDialog(
+               null,
+               "<html><strong>El valor ingresado no es valido!<strong><html>",
+               null,
+               JOptionPane.ERROR_MESSAGE
+            );
+         }else{
+            Producto p = conexion.datosProductoNombre(nombre);
+            if(p != null){
+               new FormProductFrame(login, p).setVisible(true);
+               conexion.cerrarConexion();
+               dispose();
+            }else{
+               JOptionPane.showMessageDialog(
+                  null,
+                  "<html><strong>No se encontró ningun prducto con el nombre ingresado!<strong><html>",
+                  null,
+                  JOptionPane.WARNING_MESSAGE
+               );
+            }
+         }
+      }
       
    }//GEN-LAST:event_jButton4ActionPerformed
+
+   private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+      
+      
+      
+   }//GEN-LAST:event_jButton5ActionPerformed
 
    /**
     * @param args the command line arguments

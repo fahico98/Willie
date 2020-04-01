@@ -1,8 +1,13 @@
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import javax.swing.JOptionPane;
+
+
 public class FormProductFrame extends javax.swing.JFrame {
 
    private Usuario login;
-   private Producto prod;
+   private Producto prod = null;
    private String nombreTitulo, apellidoTitulo, rolTitulo;
    
    public FormProductFrame(Usuario login){
@@ -37,6 +42,88 @@ public class FormProductFrame extends javax.swing.JFrame {
       campoUnidadMedida.setText(prod.getUnidadesMedida());
       campoPrecio.setText(prod.getPrecioUnitario() + "");
       campoTotalUnidades.setText(prod.getTotalUnidades() + "");
+   }
+   
+   private boolean validarFormulario(){
+      
+      String nombre = campoNombreProducto.getText();
+      String tipo = campoTipo.getText();
+      String cantidad = campoCantidad.getText();
+      String unidadMedida = campoUnidadMedida.getText();
+      String precio = campoPrecio.getText();
+      String unidades = campoTotalUnidades.getText();
+      
+      Pattern num = Pattern.compile("[0-9]+");
+      Pattern alphaNum = Pattern.compile("[a-zA-Z0-9 ]+");
+      
+      Matcher matNombre = alphaNum.matcher(nombre);
+      Matcher matTipo = alphaNum.matcher(tipo);
+      Matcher matCant = num.matcher(cantidad);
+      Matcher matUnidMed = alphaNum.matcher(unidadMedida);
+      Matcher matPrecio = num.matcher(precio);
+      Matcher matUnid = num.matcher(unidades);
+      
+      if(nombre.compareTo("") == 0 || tipo.compareTo("") == 0 || cantidad.compareTo("") == 0 ||
+         unidadMedida.compareTo("") == 0 || precio.compareTo("") == 0 || unidades.compareTo("") == 0){
+         JOptionPane.showMessageDialog(
+            null,
+            "<html><strong>Ninguno de los campos debe estar vacio!<strong><html>",
+            null,
+            JOptionPane.WARNING_MESSAGE
+         );
+         return false;
+      }else if(!matNombre.matches()){
+         JOptionPane.showMessageDialog(
+            null,
+            "<html><strong>El nombre del producto no debe contener caracteres especiales!<strong><html>",
+            null,
+            JOptionPane.WARNING_MESSAGE
+         );
+         return false;
+      }else if(!matTipo.matches()){
+         JOptionPane.showMessageDialog(
+            null,
+            "<html><strong>El tipo del producto no debe contener caracteres especiales!<strong><html>",
+            null,
+            JOptionPane.WARNING_MESSAGE
+         );
+         return false;
+      }else if(!matCant.matches()){
+         JOptionPane.showMessageDialog(
+            null,
+            "<html><strong>La cantidad de producto debe ser un número entero!<strong><html>",
+            null,
+            JOptionPane.WARNING_MESSAGE
+         );
+         return false;
+         
+      }else if(!matUnidMed.matches()){
+         JOptionPane.showMessageDialog(
+            null,
+            "<html><strong>Las unidades del producto no deben contener caracteres especiales!<strong><html>",
+            null,
+            JOptionPane.WARNING_MESSAGE
+         );
+         return false;
+      }else if(!matPrecio.matches()){
+         JOptionPane.showMessageDialog(
+            null,
+            "<html><strong>El precio del producto debe ser un número entero!<strong><html>",
+            null,
+            JOptionPane.WARNING_MESSAGE
+         );
+         return false;
+      }else if(!matUnid.matches()){
+         JOptionPane.showMessageDialog(
+            null,
+            "<html><strong>Las unidades del producto deben ser un número entero!<strong><html>",
+            null,
+            JOptionPane.WARNING_MESSAGE
+         );
+         return false;
+      }else{
+         return true;
+      }
    }
 
    /**
@@ -115,6 +202,11 @@ public class FormProductFrame extends javax.swing.JFrame {
 
       jButton1.setForeground(new java.awt.Color(0, 0, 0));
       jButton1.setText("Guardar");
+      jButton1.addActionListener(new java.awt.event.ActionListener() {
+         public void actionPerformed(java.awt.event.ActionEvent evt) {
+            jButton1ActionPerformed(evt);
+         }
+      });
 
       jButton2.setForeground(new java.awt.Color(0, 0, 0));
       jButton2.setText("Limpiar campos");
@@ -243,6 +335,60 @@ public class FormProductFrame extends javax.swing.JFrame {
       dispose();
       
    }//GEN-LAST:event_jButton3ActionPerformed
+
+   private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+      
+      if(validarFormulario()){
+         Conexion conexion = new Conexion();
+         String nombre = campoNombreProducto.getText();
+         String tipo = campoTipo.getText();
+         String cantidad = campoCantidad.getText();
+         String unidadMedida = campoUnidadMedida.getText();
+         String precio = campoPrecio.getText();
+         String unidades = campoTotalUnidades.getText();
+         if(prod != null){
+            conexion.actualizarProducto(
+               new Producto(
+                  prod.getId(),
+                  nombre,
+                  tipo,
+                  Integer.parseInt(cantidad),
+                  unidadMedida,
+                  Integer.parseInt(precio),
+                  Integer.parseInt(unidades)
+               )
+            );
+            JOptionPane.showMessageDialog(
+               null,
+               "<html><strong>Actualización de producto exitosa!<strong><html>",
+               null,
+               JOptionPane.INFORMATION_MESSAGE
+            );
+         }else{
+            conexion.agregarProducto(
+               new Producto(
+                  0,
+                  nombre,
+                  tipo,
+                  Integer.parseInt(cantidad),
+                  unidadMedida,
+                  Integer.parseInt(precio),
+                  Integer.parseInt(unidades)
+               )
+            );
+            JOptionPane.showMessageDialog(
+               null,
+               "<html><strong>Producto registrado con exito!<strong><html>",
+               null,
+               JOptionPane.INFORMATION_MESSAGE
+            );
+         }
+         conexion.cerrarConexion();
+         new DashboardFrame(login).setVisible(true);
+         dispose();
+      }
+      
+   }//GEN-LAST:event_jButton1ActionPerformed
 
    /**
     * @param args the command line arguments

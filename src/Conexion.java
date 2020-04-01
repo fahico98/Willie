@@ -43,6 +43,75 @@ public class Conexion {
       realizarConsulta(query);
    }
    
+   public Producto datosProductoId(int id){
+      String prepQuery = "SELECT * FROM productos WHERE id = ?";
+      Producto p = null;
+      try{
+         PreparedStatement prepStatement = conexion.prepareStatement(prepQuery);
+         prepStatement.setInt(1, id);
+         ResultSet r = prepStatement.executeQuery();
+         if(r.first()){
+            p = new Producto(r.getInt(1), r.getString(2), r.getString(3), r.getInt(4),
+               r.getString(5), r.getInt(6), r.getInt(7));
+         }
+      }catch(Exception e){
+         System.out.println("Error: " + e.getMessage());
+      }
+      return p;
+   }
+   
+   public Producto datosProductoNombre(String nombre){
+      String prepQuery = "SELECT * FROM productos WHERE nombre = ?";
+      Producto p = null;
+      try{
+         PreparedStatement prepStatement = conexion.prepareStatement(prepQuery);
+         prepStatement.setString(1, nombre);
+         ResultSet r = prepStatement.executeQuery();
+         if(r.first()){
+            p = new Producto(r.getInt(1), r.getString(2), r.getString(3), r.getInt(4),
+               r.getString(5), r.getInt(6), r.getInt(7));
+         }
+      }catch(Exception e){
+         System.out.println("Error: " + e.getMessage());
+      }
+      return p;
+   }
+   
+   public void actualizarProducto(Producto p){
+      String prepQuery = "UPDATE productos SET nombre = ?, tipo = ?, cantidad = ?, unidades_de_medida = ?," +
+         " precio_unitario = ?, total_unidades = ? WHERE id = ?";
+      try{
+         PreparedStatement prepStatement = conexion.prepareStatement(prepQuery);
+         prepStatement.setString(1, p.getNombre());
+         prepStatement.setString(2, p.getTipo());
+         prepStatement.setInt(3, p.getCantidad());
+         prepStatement.setString(4, p.getUnidadesMedida());
+         prepStatement.setInt(5, p.getPrecioUnitario());
+         prepStatement.setInt(6, p.getTotalUnidades());
+         prepStatement.setInt(7, p.getId());
+         prepStatement.executeUpdate();
+      }catch(Exception e){
+         System.out.println("Error: " + e.getMessage());
+      }
+   }
+   
+   public void agregarProducto(Producto p){
+      String prepQuery = "INSERT INTO productos (nombre, tipo, cantidad, unidades_de_medida, " +
+         "precio_unitario, total_unidades) VALUES (?, ?, ?, ?, ?, ?)";
+      try{
+         PreparedStatement prepStatement = conexion.prepareStatement(prepQuery);
+         prepStatement.setString(1, p.getNombre());
+         prepStatement.setString(2, p.getTipo());
+         prepStatement.setInt(3, p.getCantidad());
+         prepStatement.setString(4, p.getUnidadesMedida());
+         prepStatement.setInt(5, p.getPrecioUnitario());
+         prepStatement.setInt(6, p.getTotalUnidades());
+         prepStatement.executeUpdate();
+      }catch(Exception e){
+         System.out.println("Error: " + e.getMessage());
+      }
+   }
+   
    public void actualizarContrasenaUsuario(int id, String contrasena){
       String encCont = Encriptador.encriptar(contrasena);
       String query = "UPDATE usuarios SET contraseña  = '" + encCont + "' WHERE id = " + id;
