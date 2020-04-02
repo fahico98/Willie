@@ -95,6 +95,57 @@ public class Conexion {
       }
    }
    
+   public Cliente datosClienteId(int id){
+      String prepQuery = "SELECT * FROM clientes WHERE id = ?";
+      Cliente c = null;
+      try{
+         PreparedStatement prepStatement = conexion.prepareStatement(prepQuery);
+         prepStatement.setInt(1, id);
+         ResultSet r = prepStatement.executeQuery();
+         if(r.first()){
+            c = new Cliente(r.getInt(1), r.getString(2), r.getString(3), r.getInt(4),
+               r.getString(5), r.getString(6));
+         }
+      }catch(Exception e){
+         System.out.println("Error: " + e.getMessage());
+      }
+      return c;
+   }
+   
+   public Cliente datosClienteTelefono(String telefono){
+      String prepQuery = "SELECT * FROM clientes WHERE telefono = ?";
+      Cliente c = null;
+      try{
+         PreparedStatement prepStatement = conexion.prepareStatement(prepQuery);
+         prepStatement.setString(1, telefono);
+         ResultSet r = prepStatement.executeQuery();
+         if(r.first()){
+            c = new Cliente(r.getInt(1), r.getString(2), r.getString(3), r.getInt(4),
+               r.getString(5), r.getString(6));
+         }
+      }catch(Exception e){
+         System.out.println("Error: " + e.getMessage());
+      }
+      return c;
+   }
+   
+   public void actualizarCliente(Cliente c){
+      String prepQuery = "UPDATE clientes SET nombre = ?, apellido = ?, edad = ?, " +
+         "direccion = ?, telefono = ? WHERE id = ?";
+      try{
+         PreparedStatement prepStatement = conexion.prepareStatement(prepQuery);
+         prepStatement.setString(1, c.getNombre());
+         prepStatement.setString(2, c.getApellido());
+         prepStatement.setInt(3, c.getEdad());
+         prepStatement.setString(4, c.getDireccion());
+         prepStatement.setString(5, c.getTelefono());
+         prepStatement.setInt(6, c.getId());
+         prepStatement.executeUpdate();
+      }catch(Exception e){
+         System.out.println("Error: " + e.getMessage());
+      }
+   }
+   
    public void agregarProducto(Producto p){
       String prepQuery = "INSERT INTO productos (nombre, tipo, cantidad, unidades_de_medida, " +
          "precio_unitario, total_unidades) VALUES (?, ?, ?, ?, ?, ?)";
@@ -106,6 +157,22 @@ public class Conexion {
          prepStatement.setString(4, p.getUnidadesMedida());
          prepStatement.setInt(5, p.getPrecioUnitario());
          prepStatement.setInt(6, p.getTotalUnidades());
+         prepStatement.executeUpdate();
+      }catch(Exception e){
+         System.out.println("Error: " + e.getMessage());
+      }
+   }
+   
+   public void agregarCliente(Cliente c){
+      String prepQuery = "INSERT INTO clientes (nombre, apellido, edad, direccion, " +
+         "telefono) VALUES (?, ?, ?, ?, ?)";
+      try{
+         PreparedStatement prepStatement = conexion.prepareStatement(prepQuery);
+         prepStatement.setString(1, c.getNombre());
+         prepStatement.setString(2, c.getApellido());
+         prepStatement.setInt(3, c.getEdad());
+         prepStatement.setString(4, c.getDireccion());
+         prepStatement.setString(5, c.getTelefono());
          prepStatement.executeUpdate();
       }catch(Exception e){
          System.out.println("Error: " + e.getMessage());

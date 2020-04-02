@@ -143,6 +143,11 @@ public class DashboardFrame extends javax.swing.JFrame {
       jPanel4 = new javax.swing.JPanel();
       jScrollPane2 = new javax.swing.JScrollPane();
       tablaClientes = new javax.swing.JTable();
+      jButton6 = new javax.swing.JButton();
+      jButton7 = new javax.swing.JButton();
+      jButton9 = new javax.swing.JButton();
+      jButton10 = new javax.swing.JButton();
+      jLabel7 = new javax.swing.JLabel();
       jPanel2 = new javax.swing.JPanel();
       jLabel1 = new javax.swing.JLabel();
       jLabel2 = new javax.swing.JLabel();
@@ -280,21 +285,65 @@ public class DashboardFrame extends javax.swing.JFrame {
    );
    jScrollPane2.setViewportView(tablaClientes);
 
+   jButton6.setText("Registrar cliente");
+   jButton6.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+         jButton6ActionPerformed(evt);
+      }
+   });
+
+   jButton7.setText("Editar cliente");
+   jButton7.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+         jButton7ActionPerformed(evt);
+      }
+   });
+
+   jButton9.setText("Reporte de ventas");
+
+   jButton10.setText("Registrar venta");
+
+   jLabel7.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
+   jLabel7.setForeground(new java.awt.Color(0, 0, 0));
+   jLabel7.setText("<html>Listado de clientes</html>");
+
    javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
    jPanel4.setLayout(jPanel4Layout);
    jPanel4Layout.setHorizontalGroup(
       jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
       .addGroup(jPanel4Layout.createSequentialGroup()
-         .addContainerGap()
-         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 582, javax.swing.GroupLayout.PREFERRED_SIZE)
+         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+               .addContainerGap()
+               .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                  .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 582, javax.swing.GroupLayout.PREFERRED_SIZE)
+                  .addGroup(jPanel4Layout.createSequentialGroup()
+                     .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                     .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                     .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                     .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))))
+            .addGroup(jPanel4Layout.createSequentialGroup()
+               .addGap(226, 226, 226)
+               .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
          .addContainerGap(12, Short.MAX_VALUE))
    );
    jPanel4Layout.setVerticalGroup(
       jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
       .addGroup(jPanel4Layout.createSequentialGroup()
          .addContainerGap()
+         .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
          .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-         .addContainerGap(128, Short.MAX_VALUE))
+         .addGap(18, 18, 18)
+         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+            .addComponent(jButton6)
+            .addComponent(jButton7)
+            .addComponent(jButton9)
+            .addComponent(jButton10))
+         .addGap(36, 36, 36))
    );
 
    jTabbedPane1.addTab("Clientes", jPanel4);
@@ -705,6 +754,94 @@ public class DashboardFrame extends javax.swing.JFrame {
       
    }//GEN-LAST:event_jButton5ActionPerformed
 
+   private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+      
+      new FormClientFrame(login).setVisible(true);
+      dispose();
+      
+   }//GEN-LAST:event_jButton6ActionPerformed
+
+   private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+      
+      Conexion conexion = new Conexion();
+      String[] opciones = {"Id", "Telefono"};
+      
+      String opcion = (String)JOptionPane.showInputDialog(
+         null,
+         "<html><strong>Seleccione el criterio de busqueda para el<br>cliente que desea editar:</strong></html>",
+         null,
+         JOptionPane.QUESTION_MESSAGE,
+         null,
+         opciones,
+         opciones[0]
+      );
+      
+      if(opcion.compareTo("Id") == 0){
+         String id = JOptionPane.showInputDialog(
+            null,
+            "<html><strong>Ingrese el id del cliente:</strong></html>", 
+            null,
+            JOptionPane.QUESTION_MESSAGE
+         );
+         Pattern num = Pattern.compile("[0-9]+");
+         Matcher matId = num.matcher(id);
+         if(id.compareTo("") == 0 || !matId.matches()){
+            JOptionPane.showMessageDialog(
+               null,
+               "<html><strong>El valor ingresado no es valido!<strong><html>",
+               null,
+               JOptionPane.ERROR_MESSAGE
+            );
+         }else{
+            Cliente c = conexion.datosClienteId(Integer.parseInt(id));
+            if(c != null){
+               new FormClientFrame(login, c).setVisible(true);
+               conexion.cerrarConexion();
+               dispose();
+            }else{
+               JOptionPane.showMessageDialog(
+                  null,
+                  "<html><strong>No se encontró ningun cliente con el Id ingresado!<strong><html>",
+                  null,
+                  JOptionPane.WARNING_MESSAGE
+               );
+            }
+         }
+      }else{
+         String telefono = JOptionPane.showInputDialog(
+            null,
+            "<html><strong>Ingrese el telefono del cliente:</strong></html>", 
+            null,
+            JOptionPane.QUESTION_MESSAGE
+         );
+         Pattern alphaNum = Pattern.compile("[a-zA-Z0-9 ]+");
+         Matcher matTelefono = alphaNum.matcher(telefono);
+         if(telefono.compareTo("") == 0 || !matTelefono.matches()){
+            JOptionPane.showMessageDialog(
+               null,
+               "<html><strong>El valor ingresado no es valido!<strong><html>",
+               null,
+               JOptionPane.ERROR_MESSAGE
+            );
+         }else{
+            Cliente c = conexion.datosClienteTelefono(telefono);
+            if(c != null){
+               new FormClientFrame(login, c).setVisible(true);
+               conexion.cerrarConexion();
+               dispose();
+            }else{
+               JOptionPane.showMessageDialog(
+                  null,
+                  "<html><strong>No se encontró ningun cliente con el telefono ingresado!<strong><html>",
+                  null,
+                  JOptionPane.WARNING_MESSAGE
+               );
+            }
+         }
+      }
+      
+   }//GEN-LAST:event_jButton7ActionPerformed
+
    /**
     * @param args the command line arguments
     */
@@ -751,16 +888,21 @@ public class DashboardFrame extends javax.swing.JFrame {
    private javax.swing.JTextField campoUsuarioCuenta;
    private javax.swing.JLabel etiquetaTituloDashboard;
    private javax.swing.JButton jButton1;
+   private javax.swing.JButton jButton10;
    private javax.swing.JButton jButton2;
    private javax.swing.JButton jButton3;
    private javax.swing.JButton jButton4;
    private javax.swing.JButton jButton5;
+   private javax.swing.JButton jButton6;
+   private javax.swing.JButton jButton7;
+   private javax.swing.JButton jButton9;
    private javax.swing.JLabel jLabel1;
    private javax.swing.JLabel jLabel2;
    private javax.swing.JLabel jLabel3;
    private javax.swing.JLabel jLabel4;
    private javax.swing.JLabel jLabel5;
    private javax.swing.JLabel jLabel6;
+   private javax.swing.JLabel jLabel7;
    private javax.swing.JPanel jPanel1;
    private javax.swing.JPanel jPanel2;
    private javax.swing.JPanel jPanel3;

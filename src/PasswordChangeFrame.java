@@ -168,10 +168,12 @@ public class PasswordChangeFrame extends javax.swing.JFrame {
       String contrasena = campoNuevaContrasena.getText();
       String reContrasena = campoReNuevaContrasena.getText();
       
-      if(contrasena.compareTo("") == 0 || reContrasena.compareTo("") == 0){
+      if(contrasena.compareTo("") != 0 && reContrasena.compareTo("") != 0){
+         
          Pattern p = Pattern.compile("[^$%&/*ñ-]+");
          Matcher matCont = p.matcher(contrasena);
          Matcher matReCont = p.matcher(reContrasena);
+         
          if(matCont.matches() && matReCont.matches()){
             if(contrasena.compareTo(reContrasena) == 0){
                conexion.actualizarContrasenaUsuario(login.getId(), contrasena);

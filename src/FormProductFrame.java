@@ -162,7 +162,7 @@ public class FormProductFrame extends javax.swing.JFrame {
 
       jLabel1.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
       jLabel1.setForeground(new java.awt.Color(0, 0, 0));
-      jLabel1.setText("Datos de producto");
+      jLabel1.setText("Datos del producto");
 
       jLabel2.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
       jLabel2.setForeground(new java.awt.Color(0, 0, 0));

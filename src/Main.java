@@ -3,8 +3,8 @@ public class Main {
    
    public static void main(String[] args) {
       
-      // crearTablas();
-      // llenarTablas();
+      //crearTablas();
+      //llenarTablas();
       
       new LoginFrame().setVisible(true);
    }
@@ -51,6 +51,7 @@ public class Main {
          "cliente_id             INT NOT NULL, " +
          "producto_id            INT NOT NULL, " +
          "unidades               INT NOT NULL, " +
+         "fecha                  DATE NOT NULL, " +
          "costo                  INT NOT NULL, " +
          "FOREIGN KEY (cliente_id) REFERENCES clientes(cliente_id), " +
          "FOREIGN KEY (producto_id) REFERENCES productos(producto_id)" +
@@ -117,6 +118,7 @@ public class Main {
          "('raul enrique', 'polo triana', 'supervison', 'raule23', '" + enc + "'), " +
          "('susana maria', 'munevar flores', 'cajero', 'susan49', '" + enc + "'), " +
          "('leonardo enrique', 'moreno plata', 'cajero', 'leoenri65', '" + enc + "')";
+      
       conexion.realizarConsulta(query);
    }
 }
