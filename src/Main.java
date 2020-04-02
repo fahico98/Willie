@@ -1,4 +1,8 @@
 
+import com.itextpdf.text.*;
+import com.itextpdf.text.pdf.PdfWriter;
+import java.io.FileOutputStream;
+
 public class Main {
    
    public static void main(String[] args) {
@@ -7,6 +11,7 @@ public class Main {
       //llenarTablas();
       
       new LoginFrame().setVisible(true);
+      
    }
    
    public static void crearTablas(){

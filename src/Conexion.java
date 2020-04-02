@@ -248,6 +248,71 @@ public class Conexion {
       return salida;
    }
    
+   public String compraPosible(int idCliente, int idProducto, int cantidad){
+      String prepQuery;
+      PreparedStatement prepStatement;
+      ResultSet r;
+      try{
+         prepQuery = "SELECT * FROM clientes WHERE id = ?";
+         prepStatement = conexion.prepareStatement(prepQuery);
+         prepStatement.setInt(1, idCliente);
+         r = prepStatement.executeQuery();
+         if(!r.first()){
+            return "client not found";
+         }
+         prepQuery = "SELECT * FROM productos WHERE id = ?";
+         prepStatement = conexion.prepareStatement(prepQuery);
+         prepStatement.setInt(1, idProducto);
+         r = prepStatement.executeQuery();
+         if(r.first()){
+            if(r.getInt(4) < cantidad){
+               return "sold out";
+            }
+         }else{
+            return "product not found";
+         }
+      }catch(Exception e){
+         System.out.println("Error from compraPosible: " + e.getMessage());
+      }
+      return "true";
+   }
+   
+   public void efectuarCompra(int idCliente, int idProducto, int cantidad){
+      String prepQuery;
+      PreparedStatement prepStatement;
+      Date hoy = new Date(System.currentTimeMillis());
+      ResultSet r;
+      try{
+         prepQuery = "SELECT * FROM productos WHERE id = ?";
+         prepStatement = conexion.prepareStatement(prepQuery);
+         prepStatement.setInt(1, idProducto);
+         r = prepStatement.executeQuery();
+         r.first();
+         int costoUnitario = r.getInt(6);
+         int unidadesProducto = r.getInt(7);
+         int costoCompra = costoUnitario * cantidad;
+         
+         prepQuery = "INSERT INTO compras (cliente_id, producto_id, unidades, fecha, costo)" +
+            "VALUES (?, ?, ?, ?, ?)";
+         prepStatement = conexion.prepareStatement(prepQuery);
+         prepStatement.setInt(1, idCliente);
+         prepStatement.setInt(2, idProducto);
+         prepStatement.setInt(3, cantidad);
+         prepStatement.setDate(4, hoy);
+         prepStatement.setInt(5, costoCompra);
+         prepStatement.executeUpdate();
+         
+         prepQuery = "UPDATE productos SET total_unidades = " + (unidadesProducto - cantidad) +
+            " WHERE id = ?";
+         prepStatement = conexion.prepareStatement(prepQuery);
+         prepStatement.setInt(1, idProducto);
+         prepStatement.executeUpdate();
+         
+      }catch(Exception e){
+         System.out.println("Error from efectuarCompra: " + e.getMessage());
+      }
+   }
+   
    /**
     * Se cierra la conexion con la base de datos.
     */

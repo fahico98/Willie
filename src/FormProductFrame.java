@@ -3,7 +3,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 
-
 public class FormProductFrame extends javax.swing.JFrame {
 
    private Usuario login;

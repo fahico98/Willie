@@ -285,6 +285,7 @@ public class DashboardFrame extends javax.swing.JFrame {
    );
    jScrollPane2.setViewportView(tablaClientes);
 
+   jButton6.setForeground(new java.awt.Color(0, 0, 0));
    jButton6.setText("Registrar cliente");
    jButton6.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -292,6 +293,7 @@ public class DashboardFrame extends javax.swing.JFrame {
       }
    });
 
+   jButton7.setForeground(new java.awt.Color(0, 0, 0));
    jButton7.setText("Editar cliente");
    jButton7.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -299,9 +301,16 @@ public class DashboardFrame extends javax.swing.JFrame {
       }
    });
 
+   jButton9.setForeground(new java.awt.Color(0, 0, 0));
    jButton9.setText("Reporte de ventas");
 
-   jButton10.setText("Registrar venta");
+   jButton10.setForeground(new java.awt.Color(0, 0, 0));
+   jButton10.setText("Registrar compra");
+   jButton10.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+         jButton10ActionPerformed(evt);
+      }
+   });
 
    jLabel7.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
    jLabel7.setForeground(new java.awt.Color(0, 0, 0));
@@ -841,6 +850,13 @@ public class DashboardFrame extends javax.swing.JFrame {
       }
       
    }//GEN-LAST:event_jButton7ActionPerformed
+
+   private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+      
+      new RegCompraFrame(login).setVisible(true);
+      dispose();
+      
+   }//GEN-LAST:event_jButton10ActionPerformed
 
    /**
     * @param args the command line arguments
