@@ -253,19 +253,12 @@ public class Conexion {
       PreparedStatement prepStatement;
       ResultSet r;
       try{
-         prepQuery = "SELECT * FROM clientes WHERE id = ?";
-         prepStatement = conexion.prepareStatement(prepQuery);
-         prepStatement.setInt(1, idCliente);
-         r = prepStatement.executeQuery();
-         if(!r.first()){
+         if(existeCliente(idCliente) == null){
             return "client not found";
          }
-         prepQuery = "SELECT * FROM productos WHERE id = ?";
-         prepStatement = conexion.prepareStatement(prepQuery);
-         prepStatement.setInt(1, idProducto);
-         r = prepStatement.executeQuery();
-         if(r.first()){
-            if(r.getInt(4) < cantidad){
+         Producto p = existeProducto(idProducto);
+         if(p != null){
+            if(p.getTotalUnidades() < cantidad){
                return "sold out";
             }
          }else{
@@ -311,6 +304,55 @@ public class Conexion {
       }catch(Exception e){
          System.out.println("Error from efectuarCompra: " + e.getMessage());
       }
+   }
+   
+   public Cliente existeCliente(int idCliente){
+      try{
+         String prepQuery = "SELECT * FROM clientes WHERE id = ?";
+         PreparedStatement prepStatement = conexion.prepareStatement(prepQuery);
+         prepStatement.setInt(1, idCliente);
+         ResultSet r = prepStatement.executeQuery();
+         if(r.first()){
+            return new Cliente(r.getInt(1), r.getString(2), r.getString(3), r.getInt(4),
+               r.getString(5), r.getString(6));
+         }
+      }catch(Exception e){
+         System.out.println("Error: " + e.getMessage());
+      }
+      return null;
+   }
+   
+   public Producto existeProducto(int idProducto){
+      try{
+         String prepQuery = "SELECT * FROM productos WHERE id = ?";
+         PreparedStatement prepStatement = conexion.prepareStatement(prepQuery);
+         prepStatement.setInt(1, idProducto);
+         ResultSet r = prepStatement.executeQuery();
+         if(r.first()){
+            return new Producto(r.getInt(1), r.getString(2), r.getString(3), r.getInt(4),
+               r.getString(5), r.getInt(6), r.getInt(7));
+         }
+      }catch(Exception e){
+         System.out.println("Error: " + e.getMessage());
+      }
+      return null;
+   }
+   
+   public ResultSet fechaFactura(int idCliente, java.sql.Date fecha){
+      try{
+         String prepQuery = "SELECT * FROM compras WHERE cliente_id = ? AND fecha = ?";
+         PreparedStatement prepStatement = conexion.prepareStatement(prepQuery);
+         prepStatement.setInt(1, idCliente);
+         prepStatement.setDate(2, fecha);
+         ResultSet r = prepStatement.executeQuery();
+         r.last();
+         if(r.first()){
+            return r;
+         }
+      }catch(Exception e){
+         System.out.println("Error from fechaFactura: " + e.getMessage());
+      }
+      return null;
    }
    
    /**

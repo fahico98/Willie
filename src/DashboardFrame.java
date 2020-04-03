@@ -302,7 +302,12 @@ public class DashboardFrame extends javax.swing.JFrame {
    });
 
    jButton9.setForeground(new java.awt.Color(0, 0, 0));
-   jButton9.setText("Reporte de ventas");
+   jButton9.setText("Factura de compra");
+   jButton9.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+         jButton9ActionPerformed(evt);
+      }
+   });
 
    jButton10.setForeground(new java.awt.Color(0, 0, 0));
    jButton10.setText("Registrar compra");
@@ -857,6 +862,13 @@ public class DashboardFrame extends javax.swing.JFrame {
       dispose();
       
    }//GEN-LAST:event_jButton10ActionPerformed
+
+   private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+      
+      new ReporteVentasFrame(login).setVisible(true);
+      dispose();
+      
+   }//GEN-LAST:event_jButton9ActionPerformed
 
    /**
     * @param args the command line arguments

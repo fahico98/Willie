@@ -144,6 +144,7 @@ public class RegCompraFrame extends javax.swing.JFrame {
 
       campoCantidadCompra.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
 
+      jButton1.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
       jButton1.setForeground(new java.awt.Color(0, 0, 0));
       jButton1.setText("Aceptar");
       jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -152,6 +153,7 @@ public class RegCompraFrame extends javax.swing.JFrame {
          }
       });
 
+      jButton2.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
       jButton2.setForeground(new java.awt.Color(0, 0, 0));
       jButton2.setText("Limpiar campos");
       jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -160,6 +162,7 @@ public class RegCompraFrame extends javax.swing.JFrame {
          }
       });
 
+      jButton3.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
       jButton3.setForeground(new java.awt.Color(0, 0, 0));
       jButton3.setText("Cancelar");
       jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -179,56 +182,55 @@ public class RegCompraFrame extends javax.swing.JFrame {
                   .addComponent(etiquetaTituloRegCompra, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                   .addContainerGap())
                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                  .addGap(0, 81, Short.MAX_VALUE)
-                  .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(79, 79, 79))
-                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                           .addComponent(jLabel2)
-                           .addComponent(jLabel3)
-                           .addComponent(jLabel4))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                           .addComponent(campoIdCliente)
-                           .addComponent(campoIdProducto)
-                           .addComponent(campoCantidadCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(115, 115, 115))))))
-         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                  .addGap(0, 0, Short.MAX_VALUE)
+                  .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                     .addComponent(jLabel2)
+                     .addComponent(jLabel3)
+                     .addComponent(jLabel4))
+                  .addGap(18, 18, 18)
+                  .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                     .addComponent(campoIdCliente)
+                     .addComponent(campoIdProducto)
+                     .addComponent(campoCantidadCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE))
+                  .addGap(116, 116, 116))))
+         .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGap(233, 233, 233)
             .addComponent(jLabel1)
-            .addGap(232, 232, 232))
+            .addGap(0, 0, Short.MAX_VALUE))
+         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+            .addContainerGap(88, Short.MAX_VALUE)
+            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGap(78, 78, 78))
       );
       jPanel1Layout.setVerticalGroup(
          jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
          .addGroup(jPanel1Layout.createSequentialGroup()
             .addContainerGap()
             .addComponent(etiquetaTituloRegCompra)
-            .addGap(42, 42, 42)
+            .addGap(35, 35, 35)
             .addComponent(jLabel1)
-            .addGap(55, 55, 55)
+            .addGap(39, 39, 39)
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                .addComponent(jLabel2)
                .addComponent(campoIdCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGap(18, 18, 18)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-               .addComponent(jLabel3)
-               .addComponent(campoIdProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGap(18, 18, 18)
+               .addComponent(campoIdProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+               .addComponent(jLabel3))
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                .addComponent(jLabel4)
                .addComponent(campoCantidadCompra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 75, Short.MAX_VALUE)
+            .addGap(40, 40, 40)
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                .addComponent(jButton2)
                .addComponent(jButton1)
                .addComponent(jButton3))
-            .addGap(122, 122, 122))
+            .addContainerGap(50, Short.MAX_VALUE))
       );
 
       javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -239,7 +241,9 @@ public class RegCompraFrame extends javax.swing.JFrame {
       );
       layout.setVerticalGroup(
          layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-         .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+         .addGroup(layout.createSequentialGroup()
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGap(0, 0, Short.MAX_VALUE))
       );
 
       pack();
@@ -266,6 +270,16 @@ public class RegCompraFrame extends javax.swing.JFrame {
       }
       
       conexion.cerrarConexion();
+      
+      JOptionPane.showMessageDialog(
+         null,
+         "<html><strong>Compra registrada con exito!<strong><html>",
+         null,
+         JOptionPane.INFORMATION_MESSAGE
+      );
+      
+      new DashboardFrame(login).setVisible(true);
+      dispose();
       
    }//GEN-LAST:event_jButton1ActionPerformed
 
