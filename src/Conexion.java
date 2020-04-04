@@ -1,5 +1,8 @@
 
 import java.sql.*;
+import java.text.SimpleDateFormat;
+
+import java.util.Calendar;
 import java.util.LinkedList;
 
 public class Conexion {
@@ -15,7 +18,7 @@ public class Conexion {
       nombreUsuario = "root";
       contrasena = "";
       String temp = "jdbc:mysql://localhost:3306/" + nombreBD + "?user=" +
-         nombreUsuario + "&password=" + contrasena + "&useSSL=false&serverTimezone=UTC";
+         nombreUsuario + "&password=" + contrasena + "&useSSL=false&serverTimezone=America/Bogota";
       try{
          conexion = DriverManager.getConnection(temp);
          sentencia = conexion.createStatement();
@@ -249,23 +252,16 @@ public class Conexion {
    }
    
    public String compraPosible(int idCliente, int idProducto, int cantidad){
-      String prepQuery;
-      PreparedStatement prepStatement;
-      ResultSet r;
-      try{
-         if(existeCliente(idCliente) == null){
-            return "client not found";
+      if(existeCliente(idCliente) == null){
+         return "client not found";
+      }
+      Producto p = existeProducto(idProducto);
+      if(p != null){
+         if(p.getTotalUnidades() < cantidad){
+            return "sold out";
          }
-         Producto p = existeProducto(idProducto);
-         if(p != null){
-            if(p.getTotalUnidades() < cantidad){
-               return "sold out";
-            }
-         }else{
-            return "product not found";
-         }
-      }catch(Exception e){
-         System.out.println("Error from compraPosible: " + e.getMessage());
+      }else{
+         return "product not found";
       }
       return "true";
    }
@@ -273,9 +269,9 @@ public class Conexion {
    public void efectuarCompra(int idCliente, int idProducto, int cantidad){
       String prepQuery;
       PreparedStatement prepStatement;
-      Date hoy = new Date(System.currentTimeMillis());
-      ResultSet r;
       try{
+         java.sql.Date hoy = new java.sql.Date(Calendar.getInstance().getTime().getTime());
+         ResultSet r;
          prepQuery = "SELECT * FROM productos WHERE id = ?";
          prepStatement = conexion.prepareStatement(prepQuery);
          prepStatement.setInt(1, idProducto);
@@ -302,7 +298,7 @@ public class Conexion {
          prepStatement.executeUpdate();
          
       }catch(Exception e){
-         System.out.println("Error from efectuarCompra: " + e.getMessage());
+         System.out.println("Error: " + e.getMessage());
       }
    }
    
@@ -350,7 +346,7 @@ public class Conexion {
             return r;
          }
       }catch(Exception e){
-         System.out.println("Error from fechaFactura: " + e.getMessage());
+         System.out.println("Error: " + e.getMessage());
       }
       return null;
    }
