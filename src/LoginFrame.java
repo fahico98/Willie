@@ -3,6 +3,9 @@ public class LoginFrame extends javax.swing.JFrame {
    
    private Conexion conexion;
    
+   /**
+    * Metodo constructor.
+    */
    public LoginFrame() {
       initComponents();
    }
@@ -25,7 +28,6 @@ public class LoginFrame extends javax.swing.JFrame {
       campoLoginContrasena = new javax.swing.JPasswordField();
       jButton1 = new javax.swing.JButton();
       jButton2 = new javax.swing.JButton();
-      jButton3 = new javax.swing.JButton();
 
       setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
       setPreferredSize(new java.awt.Dimension(600, 500));
@@ -73,10 +75,6 @@ public class LoginFrame extends javax.swing.JFrame {
          }
       });
 
-      jButton3.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
-      jButton3.setForeground(new java.awt.Color(0, 0, 0));
-      jButton3.setText("Registrarse");
-
       javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
       jPanel1.setLayout(jPanel1Layout);
       jPanel1Layout.setHorizontalGroup(
@@ -99,11 +97,9 @@ public class LoginFrame extends javax.swing.JFrame {
                   .addGap(65, 65, 65)
                   .addComponent(etiquetaInformacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                .addGroup(jPanel1Layout.createSequentialGroup()
-                  .addGap(104, 104, 104)
+                  .addGap(185, 185, 185)
                   .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                  .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                  .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                  .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                  .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                   .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
             .addContainerGap(29, Short.MAX_VALUE))
       );
@@ -125,8 +121,7 @@ public class LoginFrame extends javax.swing.JFrame {
             .addGap(49, 49, 49)
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                .addComponent(jButton1)
-               .addComponent(jButton2)
-               .addComponent(jButton3))
+               .addComponent(jButton2))
             .addContainerGap(95, Short.MAX_VALUE))
       );
 
@@ -147,14 +142,30 @@ public class LoginFrame extends javax.swing.JFrame {
 
    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
       
+      // Boton Ingresar.
+      
+      // Se obtiene y almacenan las cadenas de caracteres ingresadas por el
+      // usuario en los campos del formulario.
       String usuario = campoLoginUsuario.getText();
       String contrasena = campoLoginContrasena.getText();
+      
       conexion = new Conexion();
+      
+      // Se llama el metodo 'inicialSesion()' del objeto 'conexion'.
       Usuario login = conexion.iniciarSesion(usuario, contrasena);
+      
       if(login != null){
+         
+         // Si este metodo retorna un objeto 'Usuario' diferente de null,
+         // entonces se cierra la ventana actual y se crea una nueva ventana
+         // de tipo 'DashboardFrame' y se le pasa por parametro a su metodo
+         // contructor el objeto retornado por el metodo 'iniciarSesion()'.
          new DashboardFrame(login).setVisible(true);
          dispose();
       }else{
+         
+         // Si el objeto retornado es igual a 'null', entonces se muestra el
+         // error de validacion al usuario el label 'eriquetaInformacion'.
          etiquetaInformacion.setText(
             "<html><font color='red'>Las credenciales ingresadas no son validas...!</font></html>"
          );
@@ -164,6 +175,9 @@ public class LoginFrame extends javax.swing.JFrame {
 
    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
       
+      // Boton Salir.
+      
+      // Se cierra la ventana actual y se termina la ejecucion del programa.
       dispose();
       System.exit(0);
       
@@ -210,7 +224,6 @@ public class LoginFrame extends javax.swing.JFrame {
    private javax.swing.JLabel etiquetaInformacion;
    private javax.swing.JButton jButton1;
    private javax.swing.JButton jButton2;
-   private javax.swing.JButton jButton3;
    private javax.swing.JLabel jLabel1;
    private javax.swing.JLabel jLabel2;
    private javax.swing.JLabel jLabel4;

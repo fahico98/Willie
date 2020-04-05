@@ -1,9 +1,18 @@
 
+/**
+ * Clase modelo Producto, las instancias de esta clase representan un registro
+ * de la tabla 'productos' de la base de datos, solo contiene un metodo
+ * constructor y los respectivos metodos getters y setters de cada atributo.
+ */
 public class Producto {
    
    private int id, cantidad, precioUnitario, totalUnidades;
    private String nombre, tipo, unidadesMedida;
 
+   /**
+    * Metodo constructor, recibe por parametro los campos de la tabla
+    * 'productos' de la base de datos.
+    */
    public Producto(int id, String nombre, String tipo, int cantidad, String unidadesMedida,
       int precioUnitario, int totalUnidades){
       this.id = id;
@@ -16,98 +25,98 @@ public class Producto {
    }
 
    /**
-    * @return the id
+    * Retorna el id de la instancia.
     */
    public int getId() {
       return id;
    }
 
    /**
-    * @param id the id to set
+    * Establece el id de la instancia.
     */
    public void setId(int id) {
       this.id = id;
    }
 
    /**
-    * @return the cantidad
+    * Retorna la cantidad de la instancia.
     */
    public int getCantidad() {
       return cantidad;
    }
 
    /**
-    * @param cantidad the cantidad to set
+    * Establece la cantidad de la instancia.
     */
    public void setCantidad(int cantidad) {
       this.cantidad = cantidad;
    }
 
    /**
-    * @return the precioUnitario
+    * Retorna el precio unitario de la instancia.
     */
    public int getPrecioUnitario() {
       return precioUnitario;
    }
 
    /**
-    * @param precioUnitario the precioUnitario to set
+    * Establece el precio unitario de la instancia.
     */
    public void setPrecioUnitario(int precioUnitario) {
       this.precioUnitario = precioUnitario;
    }
 
    /**
-    * @return the totalUnidades
+    * Retorna el total de unidades de la instancia.
     */
    public int getTotalUnidades() {
       return totalUnidades;
    }
 
    /**
-    * @param totalUnidades the totalUnidades to set
+    * Establece el total de unidades de la instancia.
     */
    public void setTotalUnidades(int totalUnidades) {
       this.totalUnidades = totalUnidades;
    }
 
    /**
-    * @return the nombre
+    * Retorna el nombre de la instancia.
     */
    public String getNombre() {
       return nombre;
    }
 
    /**
-    * @param nombre the nombre to set
+    * Establece el nombre de la instancia.
     */
    public void setNombre(String nombre) {
       this.nombre = nombre;
    }
 
    /**
-    * @return the tipo
+    * Retorna el tipo de la instancia.
     */
    public String getTipo() {
       return tipo;
    }
 
    /**
-    * @param tipo the tipo to set
+    * Establece el tipo de la instancia.
     */
    public void setTipo(String tipo) {
       this.tipo = tipo;
    }
 
    /**
-    * @return the unidadesMedida
+    * Retorna las unidades de medida de la instancia.
     */
    public String getUnidadesMedida() {
       return unidadesMedida;
    }
 
    /**
-    * @param unidadesMedida the unidadesMedida to set
+    * Establece las unidades de medida de la instancia.
     */
    public void setUnidadesMedida(String unidadesMedida) {
       this.unidadesMedida = unidadesMedida;

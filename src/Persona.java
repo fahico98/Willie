@@ -1,4 +1,8 @@
 
+/**
+ * Super clase para los modelos Cliente y Usuario, de esta clase no se crearan
+ * instancias ya que solo servira como clase padre.
+ */
 public class Persona {
    
    private String nombre;

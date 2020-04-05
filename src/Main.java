@@ -1,8 +1,4 @@
 
-import com.itextpdf.text.*;
-import com.itextpdf.text.pdf.PdfWriter;
-import java.io.FileOutputStream;
-
 public class Main {
    
    public static void main(String[] args) {
@@ -14,6 +10,9 @@ public class Main {
       
    }
    
+   /**
+    * Metodo usado para crear las tablas en la base de datos.
+    */
    public static void crearTablas(){
       
       Conexion conexion = new Conexion();
@@ -66,6 +65,9 @@ public class Main {
       conexion.cerrarConexion();
    }
    
+   /**
+    * Metodo para llenar las tablas de la base de datos.
+    */
    public static void llenarTablas(){
       
       Conexion conexion = new Conexion();

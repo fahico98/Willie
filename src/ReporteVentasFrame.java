@@ -7,11 +7,17 @@ public class ReporteVentasFrame extends javax.swing.JFrame {
    private Usuario login;
    private String nombreTitulo, apellidoTitulo, rolTitulo;
 
-   public ReporteVentasFrame(Usuario login) {
+   /**
+    * Metodo constructor, recibe por parametro el usuario de la sesion iniciada.
+    */
+   public ReporteVentasFrame(Usuario login){
+      
       initComponents();
       this.login = login;
+      
       etiquetaTitulo();
-      //PlaceHolder ph = new PlaceHolder(campoFechaFactura, "aaaa-mm-dd");
+      
+      // Se establece un placeholder para el campo 'campoFechaFactura'.
       PlaceHolder ph = new PlaceHolder(
          campoFechaFactura,
          new Color(189, 189, 189),
@@ -23,6 +29,10 @@ public class ReporteVentasFrame extends javax.swing.JFrame {
       );
    }
    
+   /**
+    * Metodo que asigna a las variables 'nombreTitulo', 'apellidoTitulo' y
+    * 'rolTitulo' los respectivos valores del usuario 'login'.
+    */
    private void etiquetaTitulo(){
       nombreTitulo = login.getNombre().substring(0, 1).toUpperCase() +
          login.getNombre().substring(1).toLowerCase();
@@ -30,6 +40,9 @@ public class ReporteVentasFrame extends javax.swing.JFrame {
          login.getApellido().substring(1).toLowerCase();
       rolTitulo = login.getRol().substring(0, 1).toUpperCase() +
          login.getRol().substring(1).toLowerCase();
+      
+      // Se establece el titulo de la ventana en la variable
+      // 'etiquetaTituloFormClient'.
       etiquetaTituloRepVentas.setText("<html>" + rolTitulo + ": " + nombreTitulo + " " +
          apellidoTitulo + ".</html>");
    }
@@ -71,6 +84,8 @@ public class ReporteVentasFrame extends javax.swing.JFrame {
 
       campoFechaFactura.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
 
+      jButton1.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
+      jButton1.setForeground(new java.awt.Color(0, 0, 0));
       jButton1.setText("Generar factura");
       jButton1.addActionListener(new java.awt.event.ActionListener() {
          public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -78,6 +93,8 @@ public class ReporteVentasFrame extends javax.swing.JFrame {
          }
       });
 
+      jButton2.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
+      jButton2.setForeground(new java.awt.Color(0, 0, 0));
       jButton2.setText("Limpiar campos");
       jButton2.addActionListener(new java.awt.event.ActionListener() {
          public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -85,6 +102,8 @@ public class ReporteVentasFrame extends javax.swing.JFrame {
          }
       });
 
+      jButton3.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
+      jButton3.setForeground(new java.awt.Color(0, 0, 0));
       jButton3.setText("Cancelar");
       jButton3.addActionListener(new java.awt.event.ActionListener() {
          public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -143,7 +162,7 @@ public class ReporteVentasFrame extends javax.swing.JFrame {
                .addComponent(jButton1)
                .addComponent(jButton2)
                .addComponent(jButton3))
-            .addContainerGap(66, Short.MAX_VALUE))
+            .addContainerGap(63, Short.MAX_VALUE))
       );
 
       javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -163,6 +182,10 @@ public class ReporteVentasFrame extends javax.swing.JFrame {
 
    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
       
+      // Boton Cancelar.
+      
+      // Se cierra la ventana actual y se inicializa una nueva ventana de la
+      // clase 'DashboardFrame'.
       new DashboardFrame(login).setVisible(true);
       dispose();
       
@@ -170,13 +193,22 @@ public class ReporteVentasFrame extends javax.swing.JFrame {
 
    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
       
+      // Boton Limpiar campos.
+      
+      // Se establecen todas las cadenas de caracteres de los campos del
+      // formulario en una cadena vacia "".
       campoIdCliente.setText("");
       campoFechaFactura.setText("");
       
    }//GEN-LAST:event_jButton2ActionPerformed
 
    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+
+      // Boton Generar factura.
       
+      // Si el metodo estatico 'generarFactura()' de la clase 'GeneradorPDF'
+      // retorna 'true' entonces se cierra la ventanan actual y se inicializa
+      // una nueva ventana de la calse 'DashboardFrame'.
       if(GeneradorPDF.generarFactura(Integer.parseInt(campoIdCliente.getText()), campoFechaFactura.getText())){
          new DashboardFrame(login).setVisible(true);
          dispose();

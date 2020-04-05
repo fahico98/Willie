@@ -11,12 +11,17 @@ public class DashboardFrame extends javax.swing.JFrame {
    private String nombreTitulo, apellidoTitulo, rolTitulo;
    private DefaultTableModel modeloProductos, modeloClientes;
    
+   /**
+    * Metodo constructor, recibe por parametro el usuario de la sesion iniciada.
+    */
    public DashboardFrame(Usuario login){
       
       initComponents();
       
       this.login = login;
       
+      // Se le asignan a las variables 'nombreTitulo', 'apellidoTitulo' y
+      // 'rolTitulo' los respectivos valores del usuario 'login'.
       nombreTitulo = login.getNombre().substring(0, 1).toUpperCase() +
          login.getNombre().substring(1).toLowerCase();
       apellidoTitulo = login.getApellido().substring(0, 1).toUpperCase() +
@@ -24,17 +29,22 @@ public class DashboardFrame extends javax.swing.JFrame {
       rolTitulo = login.getRol().substring(0, 1).toUpperCase() +
          login.getRol().substring(1).toLowerCase();
       
+      // Se establece el titulo de la ventana en la variable
+      // 'etiquetaTituloDashboard'.
       etiquetaTituloDashboard.setText("<html>" + rolTitulo + ": " + nombreTitulo + " " +
          apellidoTitulo + ".</html>");
       
-      campoNombreCuenta.setText(login.getNombre());
-      campoApellidoCuenta.setText(login.getApellido());
-      campoRolCuenta.setText(login.getRol());
-      campoUsuarioCuenta.setText(login.getUsuario());
+      // Metodo para restaurar los campos del formulario.
+      restaurar();
       
+      // Se invoca al metodo para llenar las tablas de la ventana.
       llenarTablas();
    }
    
+   /**
+    * Se llenan los campos del formulario de la pestaña 'Cuenta' con los
+    * datos del usuario logeado.
+    */
    public void restaurar(){
       campoNombreCuenta.setText(login.getNombre());
       campoApellidoCuenta.setText(login.getApellido());
@@ -42,14 +52,19 @@ public class DashboardFrame extends javax.swing.JFrame {
       campoUsuarioCuenta.setText(login.getUsuario());
    }
    
+   /**
+    * Metodo para llenar las tablas de las pestañas 'Clietnes' e 'Inventario'.
+    */
    public void llenarTablas(){
       
       Conexion conexion = new Conexion();
       String[] array;
       int size;
       
+      // Modelo para la tabla de productos.
       modeloProductos = new DefaultTableModel();
       
+      // Se definen los titulos de la cabecera de la tabla de productos.
       modeloProductos.addColumn("<html>Id</html>");
       modeloProductos.addColumn("<html>Producto</html>");
       modeloProductos.addColumn("<html>Tipo</html>");
@@ -58,8 +73,11 @@ public class DashboardFrame extends javax.swing.JFrame {
       modeloProductos.addColumn("<html>Precio unitario</html>");
       modeloProductos.addColumn("<html>Total unidades</html>");
       
+      // Se agrega el modelo a la tabla de productos.
       this.tablaProductos.setModel(modeloProductos);
       
+      // Se establecen la anchura, en pixeles, de las columnas de la tabla de
+      // productos.
       tablaProductos.getColumnModel().getColumn(0).setPreferredWidth(30);
       tablaProductos.getColumnModel().getColumn(1).setPreferredWidth(150);
       tablaProductos.getColumnModel().getColumn(2).setPreferredWidth(100);
@@ -68,11 +86,18 @@ public class DashboardFrame extends javax.swing.JFrame {
       tablaProductos.getColumnModel().getColumn(5).setPreferredWidth(120);
       tablaProductos.getColumnModel().getColumn(6).setPreferredWidth(60);
       
+      // Se vacia la tabla de productos.
       ((DefaultTableModel)tablaProductos.getModel()).setNumRows(0);
+      
+      // Se obtienen la lista enlazada con los productos de la base de datos.
       LinkedList<Producto> productos = conexion.listaProductos();
       array = new String[7];
-      
       size = productos.size();
+      
+      // Se recorre la lista enlazada de productos y se llenan las celdas de la
+      // tabla de productos con los atributos de los objetos de tipo 'Producto'
+      // en la lista enlazada, se van eliminando objetos de la lista a medida
+      // que esta se recorre.
       for (int i = 0; i < size; i++) {
          Producto p = productos.poll();
          array[0] = p.getId() + "";
@@ -85,8 +110,11 @@ public class DashboardFrame extends javax.swing.JFrame {
          modeloProductos.addRow(array);
       }
       
+      // Modelo para la tabla de clientes.
       modeloClientes = new DefaultTableModel();
       
+      
+      // Se definen los titulos de la cabecera de la tabla de clientes.
       modeloClientes.addColumn("<html>Id</html>");
       modeloClientes.addColumn("<html>Nombre</html>");
       modeloClientes.addColumn("<html>Apellido</html>");
@@ -94,8 +122,11 @@ public class DashboardFrame extends javax.swing.JFrame {
       modeloClientes.addColumn("<html>Dirección</html>");
       modeloClientes.addColumn("<html>Teléfono</html>");
       
+      // Se agrega el modelo a la tabla de clientes.
       this.tablaClientes.setModel(modeloClientes);
       
+      // Se establecen la anchura, en pixeles, de las columnas de la tabla de
+      // clientes.
       tablaClientes.getColumnModel().getColumn(0).setPreferredWidth(30);
       tablaClientes.getColumnModel().getColumn(1).setPreferredWidth(130);
       tablaClientes.getColumnModel().getColumn(2).setPreferredWidth(130);
@@ -103,11 +134,18 @@ public class DashboardFrame extends javax.swing.JFrame {
       tablaClientes.getColumnModel().getColumn(4).setPreferredWidth(150);
       tablaClientes.getColumnModel().getColumn(5).setPreferredWidth(100);
       
+      // Se vacia la tabla de clientes.
       ((DefaultTableModel)tablaClientes.getModel()).setNumRows(0);
+      
+      // Se obtienen la lista enlazada con los clientes de la base de datos.
       LinkedList<Cliente> clientes = conexion.listaClientes();
       array = new String[6];
-      
       size = clientes.size();
+      
+      // Se recorre la lista enlazada de clientes y se llenan las celdas de la
+      // tabla de clientes con los atributos de los objetos de tipo 'Cliente'
+      // en la lista enlazada, se van eliminando objetos de la lista a medida
+      // que esta se recorre.
       for (int i = 0; i < size; i++) {
          Cliente c = clientes.poll();
          array[0] = c.getId() + "";
@@ -556,13 +594,21 @@ public class DashboardFrame extends javax.swing.JFrame {
 
    private void botonGuardarCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGuardarCuentaActionPerformed
       
+      // Boton Guardar !
+      
+      // Se obtienen y almacenan las cadenas de caracteres de los campos del
+      // formulario de la pestaña 'Cuenta'.
       String nombre = campoNombreCuenta.getText();
       String apellido = campoApellidoCuenta.getText();
       String rol = campoRolCuenta.getText();
       String usuario = campoUsuarioCuenta.getText();
       
+      // Se valida que ninguno de estos campos este vacio.
       if(nombre.compareTo("") == 0 || apellido.compareTo("") == 0
          || rol.compareTo("") == 0 || usuario.compareTo("") == 0){
+         
+         // Si alguno de los campos esta vacio se muestra un aviso de error de
+         // validacion.
          JOptionPane.showMessageDialog(
             null,
             "<html><strong>Ninguno de los campos debe estar vacio!<strong><html>",
@@ -570,8 +616,14 @@ public class DashboardFrame extends javax.swing.JFrame {
             JOptionPane.ERROR_MESSAGE
          );
       }else{
+         
+         // Si ninguno de los campos esta vacio, se valida cuales valores de
+         // estos campos son iguales su respectivo atributo del usuario logeado.
          if(nombre.compareTo(login.getNombre()) == 0 && apellido.compareTo(login.getApellido()) == 0
             && rol.compareTo(login.getRol()) == 0 && usuario.compareTo(login.getUsuario()) == 0){
+            
+            // Si todos son iguales se lanza un aviso al usuario donde se le
+            // informa que no se han realizado cambios en sus datos.
             JOptionPane.showMessageDialog(
                null,
                "<html><strong>No se han realizado cambios en sus datos de usuario!<strong><html>",
@@ -579,6 +631,11 @@ public class DashboardFrame extends javax.swing.JFrame {
                JOptionPane.WARNING_MESSAGE
             );
          }else{
+            
+            // Para la campos en los que se han realizado cambios, se actualizan
+            // los datos del usuario con el valor ingresado en el campo y de ser
+            // necesario tambien se actualiza el titulo de la ventana, esto es,
+            // las variables 'nombreTitulo', 'apellidoTitulo' y 'rolTitulo'.
             Conexion conexion = new Conexion();
             if(nombre.compareTo(login.getNombre()) != 0){
                conexion.actualizarDatoUsuario(login.getId(), "nombre", nombre);
@@ -607,7 +664,12 @@ public class DashboardFrame extends javax.swing.JFrame {
             if(usuario.compareTo(login.getUsuario()) != 0){
                conexion.actualizarDatoUsuario(login.getId(), "usuario", usuario);
             }
+            
+            // Se cierra la conexion con la base de datos.
             conexion.cerrarConexion();
+            
+            // Se muestra un aviso al usuario informandole que se han realizado
+            // los cambios de forma exitosa.
             JOptionPane.showMessageDialog(
                null,
                "<html><strong>Sus datos fueron actualizados satisfactoriamente!<strong><html>",
@@ -621,12 +683,19 @@ public class DashboardFrame extends javax.swing.JFrame {
 
    private void botonRestaurarCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRestaurarCuentaActionPerformed
       
+      // Boton Restaurar.
+      
+      // Metodo para restaurar los campos del formulario.
       restaurar();
       
    }//GEN-LAST:event_botonRestaurarCuentaActionPerformed
 
    private void botonLimpiarCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonLimpiarCuentaActionPerformed
       
+      // Boton Limpiar campos.
+      
+      // Se establecen todas las cadenas de caracteres de los campos del
+      // formulario en una cadena vacia "".
       campoNombreCuenta.setText("");
       campoApellidoCuenta.setText("");
       campoRolCuenta.setText("");
@@ -636,6 +705,10 @@ public class DashboardFrame extends javax.swing.JFrame {
 
    private void botonCambiarContrasenaCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCambiarContrasenaCuentaActionPerformed
       
+      // Boton Cambiar contraseña.
+      
+      // Se cierra la ventana actual y se inicializa una nueva ventana de la
+      // clase 'PasswordChangeFrame'.
       dispose();
       new PasswordChangeFrame(login).setVisible(true);
       
@@ -643,6 +716,10 @@ public class DashboardFrame extends javax.swing.JFrame {
 
    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
       
+      // Boton Cerrar sesion.
+      
+      // Se cierra la ventana actual y se inicializa una nueva ventana de la
+      // clase 'LoginFrame'.
       dispose();
       new LoginFrame().setVisible(true);
       
@@ -650,6 +727,9 @@ public class DashboardFrame extends javax.swing.JFrame {
 
    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
       
+      // Boton Eliminar cuenta.
+      
+      // Se le pregunta al usuario si esta seguro de eliminar su cuenta.
       int opcion = JOptionPane.showConfirmDialog(
          null,
          "<html><strong>" +
@@ -658,16 +738,26 @@ public class DashboardFrame extends javax.swing.JFrame {
          JOptionPane.YES_NO_OPTION
       );
       
+      // Si la respuesta del usuario es positiva, se llama al metodo de la
+      // clase 'Conexion' pasandole por parametro el id del usuario logeado.
       if(opcion == 0){
          Conexion conexion = new Conexion();
          conexion.eliminarUsuario(login.getId());
+         
+         // Se le muestra al usuario un aviso de que su cuenta fue eliminada con
+         // exito.
          JOptionPane.showMessageDialog(
             null,
             "<html><strong>Su cuenta fue elininada satisfactoriamente!<strong><html>",
             null,
             JOptionPane.INFORMATION_MESSAGE
          );
+         
+         // Se cierra la conexion con al base de datos.
          conexion.cerrarConexion();
+         
+         // Se cierra la ventana actual y se inicializa una nueva ventana de la
+         // clase 'LoginFrame'.
          dispose();
          new LoginFrame().setVisible(true);
       }
@@ -676,6 +766,10 @@ public class DashboardFrame extends javax.swing.JFrame {
 
    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
     
+      // Boton Registrar producto.
+      
+      // Se cierra la ventana actual y se inicializa una nueva ventana de la
+      // clase 'FormProductFrame'.
       new FormProductFrame(login).setVisible(true);
       dispose();
       
@@ -683,9 +777,13 @@ public class DashboardFrame extends javax.swing.JFrame {
 
    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
       
+      // Boton Actualiza producto.
+      
       Conexion conexion = new Conexion();
       String[] opciones = {"Id", "Nombre"};
       
+      // Se le pregunta al usuario por medio de una ventana modal el criterio
+      // por el cual desea buscar el producto a actualizar.
       String opcion = (String)JOptionPane.showInputDialog(
          null,
          "<html><strong>Seleccione el criterio de busqueda para el<br>producto que desea actualizar</strong></html>",
@@ -697,15 +795,25 @@ public class DashboardFrame extends javax.swing.JFrame {
       );
       
       if(opcion.compareTo("Id") == 0){
+         
+         // Si el criterio es el id se el pide al usuario que ingrese el valor
+         // de dicho id.
          String id = JOptionPane.showInputDialog(
             null,
             "<html><strong>Ingrese el id del producto:</strong></html>", 
             null,
             JOptionPane.QUESTION_MESSAGE
          );
+         
          Pattern num = Pattern.compile("[0-9]+");
          Matcher matId = num.matcher(id);
+         
+         // Se valida que el valor del id no sea una cadena de caracteres vacia
+         // y que solo contenga caracteres numericos.
          if(id.compareTo("") == 0 || !matId.matches()){
+            
+            // Si el id no cumple con la validacion se muestra al usuario un
+            // mensaje de error.
             JOptionPane.showMessageDialog(
                null,
                "<html><strong>El valor ingresado no es valido!<strong><html>",
@@ -713,12 +821,22 @@ public class DashboardFrame extends javax.swing.JFrame {
                JOptionPane.ERROR_MESSAGE
             );
          }else{
+            
+            // Si el id cumple con la validacion se obtienen los datos de este
+            // producto de la base de datos.
             Producto p = conexion.datosProductoId(Integer.parseInt(id));
+            
+            // Si el producto efectivamente se encuentra en la base de datos,
+            // Se cierra la ventana actual y se inicializa una nueva ventana de
+            // la clase 'FormProductFrame'.
             if(p != null){
                new FormProductFrame(login, p).setVisible(true);
                conexion.cerrarConexion();
                dispose();
             }else{
+               
+               // Si el producto no se encuentra en la base de datos, se muestra
+               // al usuario un aviso de error.
                JOptionPane.showMessageDialog(
                   null,
                   "<html><strong>No se encontró ningun prducto con el Id ingresado!<strong><html>",
@@ -728,15 +846,25 @@ public class DashboardFrame extends javax.swing.JFrame {
             }
          }
       }else{
+         
+         // Si el criterio es el nombre se el pide al usuario que ingrese el
+         // valor de dicho nombre.
          String nombre = JOptionPane.showInputDialog(
             null,
             "<html><strong>Ingrese el nombre del producto:</strong></html>", 
             null,
             JOptionPane.QUESTION_MESSAGE
          );
+         
          Pattern alphaNum = Pattern.compile("[a-zA-Z0-9 ]+");
          Matcher matNombre = alphaNum.matcher(nombre);
+         
+         // Se valida que el valor del nombre no sea una cadena de caracteres
+         // vacia y que solo contenga caracteres alfanumericos.
          if(nombre.compareTo("") == 0 || !matNombre.matches()){
+            
+            // Si el nombre no cumple con la validacion se muestra al usuario un
+            // mensaje de error.
             JOptionPane.showMessageDialog(
                null,
                "<html><strong>El valor ingresado no es valido!<strong><html>",
@@ -744,12 +872,22 @@ public class DashboardFrame extends javax.swing.JFrame {
                JOptionPane.ERROR_MESSAGE
             );
          }else{
+            
+            // Si el nombre cumple con la validacion se obtienen los datos de
+            // este producto de la base de datos.
             Producto p = conexion.datosProductoNombre(nombre);
+            
+            // Si el producto efectivamente se encuentra en la base de datos,
+            // Se cierra la ventana actual y se inicializa una nueva ventana de
+            // la clase 'FormProductFrame'.
             if(p != null){
                new FormProductFrame(login, p).setVisible(true);
                conexion.cerrarConexion();
                dispose();
             }else{
+               
+               // Si el producto no se encuentra en la base de datos, se muestra
+               // al usuario un aviso de error.
                JOptionPane.showMessageDialog(
                   null,
                   "<html><strong>No se encontró ningun prducto con el nombre ingresado!<strong><html>",
@@ -764,12 +902,19 @@ public class DashboardFrame extends javax.swing.JFrame {
 
    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
       
+      // Boton Generar reporte.
+      
+      // Se llama al metodo 'generarInventario()' de la clase 'GeneradorPDF'.
       GeneradorPDF.generarInventario();
       
    }//GEN-LAST:event_jButton5ActionPerformed
 
    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
       
+      // Boton Registrar cliente.
+      
+      // Se cierra la ventana actual y se inicializa una nueva ventana de
+      // la clase 'FormClientFrame'.
       new FormClientFrame(login).setVisible(true);
       dispose();
       
@@ -777,9 +922,13 @@ public class DashboardFrame extends javax.swing.JFrame {
 
    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
       
+      // Boton Editar cliente.
+      
       Conexion conexion = new Conexion();
       String[] opciones = {"Id", "Telefono"};
       
+      // Se le pregunta al usuario por medio de una ventana modal el criterio
+      // por el cual desea buscar el cliente a actualizar.
       String opcion = (String)JOptionPane.showInputDialog(
          null,
          "<html><strong>Seleccione el criterio de busqueda para el<br>cliente que desea editar:</strong></html>",
@@ -791,15 +940,25 @@ public class DashboardFrame extends javax.swing.JFrame {
       );
       
       if(opcion.compareTo("Id") == 0){
+         
+         // Si el criterio es el id se el pide al usuario que ingrese el valor
+         // de dicho id.
          String id = JOptionPane.showInputDialog(
             null,
             "<html><strong>Ingrese el id del cliente:</strong></html>", 
             null,
             JOptionPane.QUESTION_MESSAGE
          );
+         
          Pattern num = Pattern.compile("[0-9]+");
          Matcher matId = num.matcher(id);
+         
+         // Se valida que el valor del id no sea una cadena de caracteres vacia
+         // y que solo contenga caracteres numericos.
          if(id.compareTo("") == 0 || !matId.matches()){
+            
+            // Si el id no cumple con la validacion se muestra al usuario un
+            // mensaje de error.
             JOptionPane.showMessageDialog(
                null,
                "<html><strong>El valor ingresado no es valido!<strong><html>",
@@ -807,12 +966,22 @@ public class DashboardFrame extends javax.swing.JFrame {
                JOptionPane.ERROR_MESSAGE
             );
          }else{
+            
+            // Si el id cumple con la validacion se obtienen los datos de este
+            // cliente de la base de datos.
             Cliente c = conexion.datosClienteId(Integer.parseInt(id));
+            
+            // Si el cliente efectivamente se encuentra en la base de datos,
+            // Se cierra la ventana actual y se inicializa una nueva ventana de
+            // la clase 'FormClientFrame'.
             if(c != null){
                new FormClientFrame(login, c).setVisible(true);
                conexion.cerrarConexion();
                dispose();
             }else{
+               
+               // Si el cliente no se encuentra en la base de datos, se muestra
+               // al usuario un aviso de error.
                JOptionPane.showMessageDialog(
                   null,
                   "<html><strong>No se encontró ningun cliente con el Id ingresado!<strong><html>",
@@ -822,15 +991,25 @@ public class DashboardFrame extends javax.swing.JFrame {
             }
          }
       }else{
+         
+         // Si el criterio es el telefono se el pide al usuario que ingrese el
+         // valor de dicho telefono.
          String telefono = JOptionPane.showInputDialog(
             null,
             "<html><strong>Ingrese el telefono del cliente:</strong></html>", 
             null,
             JOptionPane.QUESTION_MESSAGE
          );
+         
          Pattern alphaNum = Pattern.compile("[a-zA-Z0-9 ]+");
          Matcher matTelefono = alphaNum.matcher(telefono);
+         
+         // Se valida que el valor del telefono no sea una cadena de caracteres
+         // vacia y que solo contenga caracteres alfanumericos.
          if(telefono.compareTo("") == 0 || !matTelefono.matches()){
+            
+            // Si el telefono no cumple con la validacion se muestra al usuario
+            // un mensaje de error.
             JOptionPane.showMessageDialog(
                null,
                "<html><strong>El valor ingresado no es valido!<strong><html>",
@@ -838,12 +1017,22 @@ public class DashboardFrame extends javax.swing.JFrame {
                JOptionPane.ERROR_MESSAGE
             );
          }else{
+            
+            // Si el telefono cumple con la validacion se obtienen los datos de
+            // este cliente de la base de datos.
             Cliente c = conexion.datosClienteTelefono(telefono);
+            
+            // Si el cliente efectivamente se encuentra en la base de datos,
+            // Se cierra la ventana actual y se inicializa una nueva ventana de
+            // la clase 'FormClientFrame'.
             if(c != null){
                new FormClientFrame(login, c).setVisible(true);
                conexion.cerrarConexion();
                dispose();
             }else{
+               
+               // Si el cliente no se encuentra en la base de datos, se muestra
+               // al usuario un aviso de error.
                JOptionPane.showMessageDialog(
                   null,
                   "<html><strong>No se encontró ningun cliente con el telefono ingresado!<strong><html>",
@@ -858,6 +1047,10 @@ public class DashboardFrame extends javax.swing.JFrame {
 
    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
       
+      // Boton Registrar compra.
+      
+      // Se cierra la ventana actual y se inicializa una nueva ventana de la
+      // clase 'FormCompraFrame'.
       new RegCompraFrame(login).setVisible(true);
       dispose();
       
@@ -865,6 +1058,10 @@ public class DashboardFrame extends javax.swing.JFrame {
 
    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
       
+      // Boton Factura de compra.
+      
+      // Se cierra la ventana actual y se inicializa una nueva ventana de la
+      // clase 'ReporteVentasFrame'.
       new ReporteVentasFrame(login).setVisible(true);
       dispose();
       

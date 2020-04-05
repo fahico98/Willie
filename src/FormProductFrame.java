@@ -9,12 +9,19 @@ public class FormProductFrame extends javax.swing.JFrame {
    private Producto prod = null;
    private String nombreTitulo, apellidoTitulo, rolTitulo;
    
+   /**
+    * Metodo constructor, recibe por parametro el usuario de la sesion iniciada.
+    */
    public FormProductFrame(Usuario login){
       initComponents();
       this.login = login;
       etiquetaTitulo();
    }
    
+   /**
+    * Metodo constructor, recibe por parametro el usuario de la sesion iniciada
+    * y una instancia de la clase 'Producto'.
+    */
    public FormProductFrame(Usuario login, Producto prod){
       initComponents();
       this.prod = prod;
@@ -23,6 +30,10 @@ public class FormProductFrame extends javax.swing.JFrame {
       llenarFormulario();
    }
    
+   /**
+    * Metodo que asigna a las variables 'nombreTitulo', 'apellidoTitulo' y
+    * 'rolTitulo' los respectivos valores del usuario 'login'.
+    */
    private void etiquetaTitulo(){
       nombreTitulo = login.getNombre().substring(0, 1).toUpperCase() +
          login.getNombre().substring(1).toLowerCase();
@@ -30,10 +41,18 @@ public class FormProductFrame extends javax.swing.JFrame {
          login.getApellido().substring(1).toLowerCase();
       rolTitulo = login.getRol().substring(0, 1).toUpperCase() +
          login.getRol().substring(1).toLowerCase();
+      
+      // Se establece el titulo de la ventana en la variable
+      // 'etiquetaTituloFormClient'.
       etiquetaTituloFormProduct.setText("<html>" + rolTitulo + ": " + nombreTitulo + " " +
          apellidoTitulo + ".</html>");
    }
    
+   /**
+    * Metodo utilizado para llenar los campos del formulario con los datos del
+    * objeto de tipo 'Producto' que se le pasa por parametro a su metodo
+    * constructor y que se convierte en un atributo de la instancia.
+    */
    private void llenarFormulario(){
       campoNombreProducto.setText(prod.getNombre());
       campoTipo.setText(prod.getTipo());
@@ -43,8 +62,13 @@ public class FormProductFrame extends javax.swing.JFrame {
       campoTotalUnidades.setText(prod.getTotalUnidades() + "");
    }
    
+   /**
+    * Metodo de validacion del formulario.
+    */
    private boolean validarFormulario(){
       
+      // Se obtienen todos los valores ingresados por el usuario en los campos
+      // del formulario.
       String nombre = campoNombreProducto.getText();
       String tipo = campoTipo.getText();
       String cantidad = campoCantidad.getText();
@@ -55,6 +79,8 @@ public class FormProductFrame extends javax.swing.JFrame {
       Pattern num = Pattern.compile("[0-9]+");
       Pattern alphaNum = Pattern.compile("[a-zA-Z0-9 ]+");
       
+      // Se aplica un patron de validacion a cada campo del formulario
+      // por medio de expresiones regulares.
       Matcher matNombre = alphaNum.matcher(nombre);
       Matcher matTipo = alphaNum.matcher(tipo);
       Matcher matCant = num.matcher(cantidad);
@@ -62,8 +88,13 @@ public class FormProductFrame extends javax.swing.JFrame {
       Matcher matPrecio = num.matcher(precio);
       Matcher matUnid = num.matcher(unidades);
       
+      // Se valida si alguno de los valores de los campos del formulario son
+      // cadenas de caracteres vacias.
       if(nombre.compareTo("") == 0 || tipo.compareTo("") == 0 || cantidad.compareTo("") == 0 ||
          unidadMedida.compareTo("") == 0 || precio.compareTo("") == 0 || unidades.compareTo("") == 0){
+         
+         // Si alguno de los campos esta vacio se muestra al usuarios un aviso
+         // de error y el metodo retorna 'false'.
          JOptionPane.showMessageDialog(
             null,
             "<html><strong>Ninguno de los campos debe estar vacio!<strong><html>",
@@ -72,6 +103,10 @@ public class FormProductFrame extends javax.swing.JFrame {
          );
          return false;
       }else if(!matNombre.matches()){
+         
+         // Si el campo del nombre del producto no cumple con el patron de
+         // validacion se muestra al usuario un mensaje de error y el metodo
+         // retorna 'false'.
          JOptionPane.showMessageDialog(
             null,
             "<html><strong>El nombre del producto no debe contener caracteres especiales!<strong><html>",
@@ -80,6 +115,10 @@ public class FormProductFrame extends javax.swing.JFrame {
          );
          return false;
       }else if(!matTipo.matches()){
+         
+         // Si el campo del tipo del producto no cumple con el patron de
+         // validacion se muestra al usuario un mensaje de error y el metodo
+         // retorna 'false'.
          JOptionPane.showMessageDialog(
             null,
             "<html><strong>El tipo del producto no debe contener caracteres especiales!<strong><html>",
@@ -88,6 +127,10 @@ public class FormProductFrame extends javax.swing.JFrame {
          );
          return false;
       }else if(!matCant.matches()){
+         
+         // Si el campo de la cantidad del producto no cumple con el patron de
+         // validacion se muestra al usuario un mensaje de error y el metodo
+         // retorna 'false'.
          JOptionPane.showMessageDialog(
             null,
             "<html><strong>La cantidad de producto debe ser un número entero!<strong><html>",
@@ -97,6 +140,10 @@ public class FormProductFrame extends javax.swing.JFrame {
          return false;
          
       }else if(!matUnidMed.matches()){
+         
+         // Si el campo de las unidades de medida del producto no cumple con el
+         // patron de validacion se muestra al usuario un mensaje de error y el
+         // metodo retorna 'false'.
          JOptionPane.showMessageDialog(
             null,
             "<html><strong>Las unidades del producto no deben contener caracteres especiales!<strong><html>",
@@ -105,6 +152,10 @@ public class FormProductFrame extends javax.swing.JFrame {
          );
          return false;
       }else if(!matPrecio.matches()){
+         
+         // Si el campo del precio del producto no cumple con el patron de
+         // validacion se muestra al usuario un mensaje de error y el metodo
+         // retorna 'false'.
          JOptionPane.showMessageDialog(
             null,
             "<html><strong>El precio del producto debe ser un número entero!<strong><html>",
@@ -113,6 +164,10 @@ public class FormProductFrame extends javax.swing.JFrame {
          );
          return false;
       }else if(!matUnid.matches()){
+         
+         // Si el campo de las unidades totales del producto no cumple con el
+         // patron de validacion se muestra al usuario un mensaje de error y el
+         // metodo retorna 'false'.
          JOptionPane.showMessageDialog(
             null,
             "<html><strong>Las unidades del producto deben ser un número entero!<strong><html>",
@@ -121,6 +176,9 @@ public class FormProductFrame extends javax.swing.JFrame {
          );
          return false;
       }else{
+         
+         // Si todas las validaciones se cumplen entonces el metodo retorna
+         // 'true'
          return true;
       }
    }
@@ -319,6 +377,10 @@ public class FormProductFrame extends javax.swing.JFrame {
 
    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
       
+      // Boton Limpiar campos.
+      
+      // Se establecen todas las cadenas de caracteres de los campos del
+      // formulario en una cadena vacia "".
       campoNombreProducto.setText("");
       campoTipo.setText("");
       campoCantidad.setText("");
@@ -330,22 +392,41 @@ public class FormProductFrame extends javax.swing.JFrame {
 
    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
       
+      // Boton Cancelar.
+      
+      // Se cierra la ventana actual y se inicializa una nueva ventana de la
+      // clase 'DashboardFrame'.
       new DashboardFrame(login).setVisible(true);
       dispose();
       
    }//GEN-LAST:event_jButton3ActionPerformed
 
    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+
+      // Boton Guardar.
       
       if(validarFormulario()){
+         
+         // Si el metodo 'validarFormulario()' retorna 'true', entonces se
+         // crea una instancia de la clase 'Conexion'.
          Conexion conexion = new Conexion();
+         
+         // Se obtienen y almacenan todas las cadenas de caracteres de los
+         // campos del formulario.
          String nombre = campoNombreProducto.getText();
          String tipo = campoTipo.getText();
          String cantidad = campoCantidad.getText();
          String unidadMedida = campoUnidadMedida.getText();
          String precio = campoPrecio.getText();
          String unidades = campoTotalUnidades.getText();
+         
          if(prod != null){
+            
+            // Si se paso por parametro al metodo constructor un objeto de tipo
+            // 'Producto', entonces se llama al metodo 'actualizarProducto()' de
+            // la variable 'conexion' y se le pasa por parametro una nueva
+            // instancia de la clase 'Producto' con los datos ingresados en el
+            // formulario y con el id del atributo 'prod'.
             conexion.actualizarProducto(
                new Producto(
                   prod.getId(),
@@ -357,6 +438,9 @@ public class FormProductFrame extends javax.swing.JFrame {
                   Integer.parseInt(unidades)
                )
             );
+            
+            // Se le muestra al usuario un aviso de que la actualizacion del
+            // producto fue realizada con exito.
             JOptionPane.showMessageDialog(
                null,
                "<html><strong>Actualización de producto exitosa!<strong><html>",
@@ -364,6 +448,12 @@ public class FormProductFrame extends javax.swing.JFrame {
                JOptionPane.INFORMATION_MESSAGE
             );
          }else{
+            
+            // Si no se paso por parametro al metodo constructor un objeto de
+            // tipo 'Producto', entonces se llama al metodo 'agregarProducto()'
+            // de la variable 'conexion' y se le pasa por parametro una nueva
+            // instancia de la clase 'Producto' con los datos ingresados en el
+            // formulario y con el id igual a 0.
             conexion.agregarProducto(
                new Producto(
                   0,
@@ -375,6 +465,9 @@ public class FormProductFrame extends javax.swing.JFrame {
                   Integer.parseInt(unidades)
                )
             );
+            
+            // Se le muestra al usuario un aviso de que la insercion del
+            // producto fue realizada con exito.
             JOptionPane.showMessageDialog(
                null,
                "<html><strong>Producto registrado con exito!<strong><html>",
@@ -382,7 +475,12 @@ public class FormProductFrame extends javax.swing.JFrame {
                JOptionPane.INFORMATION_MESSAGE
             );
          }
+         
+         // Se cierra la conexion con la base de datos.
          conexion.cerrarConexion();
+         
+         // Se cierra la ventana actual y se inicializa una nueva ventana de la
+         // clase 'DashboardFrame'.
          new DashboardFrame(login).setVisible(true);
          dispose();
       }
