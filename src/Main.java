@@ -3,8 +3,8 @@ public class Main {
    
    public static void main(String[] args) {
       
-      //crearTablas();
-      //llenarTablas();
+      crearTablas();
+      llenarTablas();
       
       new LoginFrame().setVisible(true);
       
@@ -57,8 +57,8 @@ public class Main {
          "unidades               INT NOT NULL, " +
          "fecha                  DATE NOT NULL, " +
          "costo                  INT NOT NULL, " +
-         "FOREIGN KEY (cliente_id) REFERENCES clientes(cliente_id), " +
-         "FOREIGN KEY (producto_id) REFERENCES productos(producto_id)" +
+         "FOREIGN KEY (cliente_id) REFERENCES clientes(id), " +
+         "FOREIGN KEY (producto_id) REFERENCES productos(id)" +
       ")";
       conexion.realizarConsulta(query);
       

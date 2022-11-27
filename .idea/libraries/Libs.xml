@@ -1,0 +1,14 @@
+<component name="libraryTable">
+  <library name="Libs">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/Libs/xmlworker-5.5.9.jar!/" />
+      <root url="jar://$PROJECT_DIR$/Libs/itextpdf-5.5.9.jar!/" />
+      <root url="jar://$PROJECT_DIR$/Libs/itext-pdfa-5.5.9.jar!/" />
+      <root url="jar://$PROJECT_DIR$/Libs/PlaceHolder.jar!/" />
+      <root url="jar://$PROJECT_DIR$/Libs/itext-xtra-5.5.9.jar!/" />
+      <root url="jar://$PROJECT_DIR$/Libs/mysql-connector-java-8.0.18.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
